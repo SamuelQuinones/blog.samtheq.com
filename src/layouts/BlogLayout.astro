@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+
+export type Props = CollectionEntry<"blog">["data"];
+
+const { authors, description, publishDate, tags, title } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  navTitle={title}
+  description={description}
+  authors={authors}
+  tags={tags}
+  publishDate={publishDate.toJSON()}
+>
+  <article class="mx-auto mt-16 min-h-full w-full max-w-4xl grow scroll-mt-16 px-3">
+    <section data-time-meta class="pb-5 text-sm text-gray-300 md:text-base">
+      <p>
+        Originally published on {publishDate.toJSON()}
+      </p>
+    </section>
+    <section
+      data-post-body
+      class="prose prose-invert max-w-none grow prose-headings:scroll-mt-16 lg:prose-xl"
+    >
+      <h1 class="lg:!text-5xl">{title}</h1>
+      <div data-tag-list class="not-prose flex gap-2 pb-3">
+        {tags.map((val) => <span>{val}</span>)}
+      </div>
+      <slot />
+    </section>
+  </article>
+</BaseLayout>

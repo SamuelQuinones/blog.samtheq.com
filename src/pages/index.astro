@@ -1,11 +1,13 @@
 ---
-import Base from "../layouts/Base.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("blog");
+const allPosts = await getCollection("blog", ({ data }) => {
+  return data.draft !== true || import.meta.env.DEV;
+});
 ---
 
-<Base title="Blog | SamTheQ" description="Samuel Quinones' Personal Blog">
+<BaseLayout title="Blog | SamTheQ" description="Samuel Quinones' Personal Blog">
   <main class="mx-auto mt-16 min-h-full w-full max-w-4xl grow scroll-mt-16 px-3">
     <section data-post-heading class="pt-5">
       <h1 class="m-0 text-5xl font-extrabold">
@@ -32,4 +34,4 @@ const allPosts = await getCollection("blog");
       }
     </ul>
   </main>
-</Base>
+</BaseLayout>

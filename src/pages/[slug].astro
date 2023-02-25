@@ -1,11 +1,13 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
-import Layout from "../layouts/Base.astro";
+import BlogLayout from "../layouts/BlogLayout.astro";
 
 export type Props = CollectionEntry<"blog">;
 
 export async function getStaticPaths() {
-  const blog = await getCollection("blog");
+  const blog = await getCollection("blog", ({ data }) => {
+    return data.draft !== true || import.meta.env.DEV;
+  });
   return blog.map((post) => ({
     params: { slug: post.slug },
     props: post,
@@ -13,36 +15,10 @@ export async function getStaticPaths() {
 }
 
 const { data, render, slug } = Astro.props;
-
-const { description, tags, title, authors, publishDate } = data;
 const { Content, headings } = await render();
 console.log("TOC: ", slug, headings);
 ---
 
-<Layout
-  title={title}
-  navTitle={title}
-  description={description}
-  slug={slug}
-  authors={authors}
-  tags={tags}
-  publishDate={publishDate.toJSON()}
->
-  <article class="mx-auto mt-16 min-h-full w-full max-w-4xl grow scroll-mt-16 px-3">
-    <section class="pb-5 text-sm text-gray-300 md:text-base">
-      <p>
-        Originally published on {publishDate.toJSON()}
-      </p>
-    </section>
-    <section
-      data-post-body
-      class="prose prose-invert max-w-none grow prose-headings:scroll-mt-16 lg:prose-xl"
-    >
-      <h1 class="lg:!text-5xl">{title}</h1>
-      <div data-tag-list class="not-prose flex gap-2 pb-3">
-        {tags.map((val) => <span>{val}</span>)}
-      </div>
-      <Content />
-    </section>
-  </article>
-</Layout>
+<BlogLayout {...data}>
+  <Content />
+</BlogLayout>

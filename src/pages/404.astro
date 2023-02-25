@@ -1,8 +1,10 @@
 ---
-import Layout from "../layouts/Base.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const fourOhFourURL = new URL("/404", Astro.site);
 ---
 
-<Layout title="Page Not Found" description="This is a blog" slug="404">
+<BaseLayout title="Page Not Found" description="This is a blog" canonicalURL={fourOhFourURL}>
   <main class="mx-auto mt-32 min-h-full w-full max-w-4xl grow scroll-mt-16 px-3">
     <section
       class="prose prose-invert max-w-none grow text-center prose-headings:scroll-mt-16 lg:prose-xl"
@@ -11,4 +13,4 @@ import Layout from "../layouts/Base.astro";
       <p>Couldn't find what you were looking for :(</p>
     </section>
   </main>
-</Layout>
+</BaseLayout>
