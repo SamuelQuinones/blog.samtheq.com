@@ -9,4 +9,5 @@ export const blogSchema = z.object({
     .or(z.date())
     .transform((val) => new Date(val)),
   authors: z.array(z.string().url()).default(["https://samtheq.com/"]),
+  draft: z.boolean().optional(),
 });
