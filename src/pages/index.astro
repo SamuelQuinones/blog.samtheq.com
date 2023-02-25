@@ -1,0 +1,33 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+---
+
+<Base title="SamTheQ Blog" description="hi there">
+  <main class="mx-auto mt-16 min-h-full w-full max-w-4xl grow scroll-mt-16 px-3">
+    <h1 class="m-0 text-5xl font-extrabold">
+      Welcome to <span class="text-gradient">Astro</span>
+    </h1>
+    <p class="instructions">
+      To get started, open the directory <code>src/pages</code> in your project.<br />
+      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+    </p>
+    <ul data-post-count={allPosts.length} class="mt-8 space-y-16">
+      {
+        allPosts.map((post) => (
+          <li data-title={post.data.title}>
+            <article>
+              <span>{post.data.publishDate.toLocaleDateString()}</span>
+              <h2>
+                <a href={`/${post.slug}`}>{post.data.title}</a>
+              </h2>
+              <p class="line-clamp-2">{post.data.description}</p>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Base>
