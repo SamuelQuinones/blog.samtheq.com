@@ -1,5 +1,7 @@
 ---
+import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+// my-1 flex whitespace-nowrap rounded p-2 text-white text-opacity-80 transition-colors focus-within:text-opacity-100 hover:bg-gray-800 active:text-opacity-100 hocus:text-white hocus:text-opacity-100 sm:my-0 sm:mx-0.5" - NAV ITEM CLASSES
 
 export interface Props {
   title: string;
@@ -11,7 +13,15 @@ export interface Props {
   tags?: string[];
 }
 
-const { title, description, slug = "", authors, publishDate, tags, navTitle = title } = Astro.props;
+const {
+  title,
+  description,
+  slug = "",
+  authors,
+  publishDate,
+  tags,
+  navTitle = "SamTheQ Blog",
+} = Astro.props;
 const pageUrl = import.meta.env.PUBLIC_SITE_URL + "/" + slug;
 ---
 
@@ -54,17 +64,17 @@ const pageUrl = import.meta.env.PUBLIC_SITE_URL + "/" + slug;
       >
         All Posts
       </a>
-      <a
+      <!-- <a
         href="https://samtheq.com"
         target="_blank"
         rel="noopener noreferrer"
         class="my-1 flex whitespace-nowrap rounded p-2 text-white text-opacity-80 transition-colors focus-within:text-opacity-100 hover:bg-gray-800 active:text-opacity-100 hocus:text-white hocus:text-opacity-100 sm:my-0 sm:mx-0.5"
       >
         Main Site
-      </a>
+      </a> -->
     </Header>
     <slot />
-    <footer class="grow-0">deez</footer>
+    <Footer />
   </body>
 </html>
 <style is:global>

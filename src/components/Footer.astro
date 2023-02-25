@@ -1,0 +1,40 @@
+---
+const P_CLASSES = "w-full mb-1 flex-shrink-0 text-center md:text-left";
+const CURRENT_YEAR = new Date().getFullYear();
+---
+
+<footer
+  class="mx-auto w-full grow-0 border-t border-gray-700 p-3 text-sm min-[576px]:max-w-[540px] min-[768px]:max-w-[720px] min-[1200px]:max-w-[1140px] min-[1400px]:max-w-[1320px]"
+>
+  <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
+    <section class="my-1 flex flex-wrap items-center justify-center md:my-0 md:justify-start">
+      <p class={P_CLASSES}>&copy; {CURRENT_YEAR} SamTheQ</p>
+      <p class={P_CLASSES}>Made with Tailwind and Astro</p>
+      <p class={P_CLASSES}>
+        Favicon &amp; Logo made by{" "}
+        <a
+          href="https://twitter.com/untamabletablez"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-slate-300 hocus:text-slate-400 hocus:underline"
+        >
+          UntamableTablez
+        </a>
+      </p>
+    </section>
+    <section
+      class="my-1 grid auto-cols-max justify-center text-base max-md:gap-y-2 md:my-0 md:justify-end"
+    >
+      <div class="flex items-center justify-center">
+        <a
+          href="https://samtheq.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-slate-300 hocus:text-slate-400 hocus:underline"
+        >
+          Main Site
+        </a>
+      </div>
+    </section>
+  </div>
+</footer>
