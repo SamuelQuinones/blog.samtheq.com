@@ -2,7 +2,7 @@
 import { CollectionEntry, getCollection } from "astro:content";
 import Layout from "../layouts/Base.astro";
 
-type Props = CollectionEntry<"blog">;
+export type Props = CollectionEntry<"blog">;
 
 export async function getStaticPaths() {
   const blog = await getCollection("blog");
@@ -33,9 +33,12 @@ console.log("TOC: ", slug, headings);
         Originally published on {publishDate.toJSON()}
       </p>
     </section>
-    <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl prose-headings:scroll-mt-16">
+    <section
+      data-post-body
+      class="prose prose-invert max-w-none grow prose-headings:scroll-mt-16 lg:prose-xl"
+    >
       <h1 class="lg:!text-5xl">{title}</h1>
-      <div data-tag-list class="flex gap-2 pb-3 not-prose">
+      <div data-tag-list class="not-prose flex gap-2 pb-3">
         {tags.map((val) => <span>{val}</span>)}
       </div>
       <Content />

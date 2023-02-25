@@ -8,7 +8,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint \"src/**/*.{ts,tsx,astro}\" && prettier -c src",
+    "format": "eslint --fix \"src/**/*.{ts,tsx,astro}\" && prettier -w src"
   },
   "dependencies": {
     "@astrojs/rss": "2.1.1",
@@ -19,6 +21,13 @@
   "devDependencies": {
     "@tailwindcss/line-clamp": "0.4.2",
     "@tailwindcss/typography": "0.5.9",
+    "@typescript-eslint/eslint-plugin": "5.53.0",
+    "@typescript-eslint/parser": "5.53.0",
+    "eslint": "8.34.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-astro": "0.23.0",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-prettier": "4.2.1",
     "prettier": "2.8.3",
     "prettier-plugin-astro": "0.8.0",
     "prettier-plugin-tailwindcss": "0.2.3"

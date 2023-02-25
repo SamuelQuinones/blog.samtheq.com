@@ -8,5 +8,5 @@ export const blogSchema = z.object({
     .string()
     .or(z.date())
     .transform((val) => new Date(val)),
-  authors: z.array(z.string().url()).default(["https://samtheq.com/"])
+  authors: z.array(z.string().url()).default(["https://samtheq.com/"]),
 });
