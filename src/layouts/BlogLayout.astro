@@ -21,10 +21,7 @@ const { authors, description, publishDate, tags, title } = Astro.props;
         Originally published on {publishDate.toJSON()}
       </p>
     </section>
-    <section
-      data-post-body
-      class="prose prose-invert max-w-none grow prose-headings:scroll-mt-16 lg:prose-xl"
-    >
+    <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl">
       <h1 class="lg:!text-5xl">{title}</h1>
       <div data-tag-list class="not-prose flex gap-2 pb-3">
         {tags.map((val) => <span>{val}</span>)}
