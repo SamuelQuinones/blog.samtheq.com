@@ -1,6 +1,10 @@
 import { loadEnv } from "vite";
 import { defineConfig } from "astro/config";
 
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import linkify from "rehype-autolink-headings";
+import addA11y from "./plugins/a11y-navigation";
+
 // https://astro.build/config
 import tailwind from "@astrojs/tailwind";
 
@@ -11,7 +15,7 @@ export default defineConfig({
   site: PUBLIC_SITE_URL,
   markdown: {
     gfm: true,
-    remarkPlugins: [],
+    rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y],
     shikiConfig: {
       theme: "one-dark-pro",
     },
