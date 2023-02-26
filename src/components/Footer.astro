@@ -8,7 +8,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 >
   <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
     <section class="my-1 flex flex-wrap items-center justify-center md:my-0 md:justify-start">
-      <p class={P_CLASSES}>&copy; {CURRENT_YEAR} SamTheQ</p>
+      <p class={P_CLASSES}>&copy; <span data-current-year>{CURRENT_YEAR}</span> SamTheQ</p>
       <p class={P_CLASSES}>Made with Tailwind and Astro</p>
       <p class={P_CLASSES}>
         Favicon &amp; Logo made by{" "}
@@ -38,3 +38,11 @@ const CURRENT_YEAR = new Date().getFullYear();
     </section>
   </div>
 </footer>
+
+<script>
+  const COPY_DATE = document.querySelector("[data-current-year]");
+  const LOCAL_CURRENT_YEAR = new Date().getFullYear().toString();
+  if (COPY_DATE && COPY_DATE.innerHTML !== LOCAL_CURRENT_YEAR) {
+    COPY_DATE.innerHTML = LOCAL_CURRENT_YEAR;
+  }
+</script>
