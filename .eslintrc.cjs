@@ -14,7 +14,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  ignorePatterns: ["node_modules/*", "dist/*", "*.cjs", "!.prettierrc"],
+  ignorePatterns: ["node_modules/*", "dist/*", "!.prettierrc"],
   rules: {
     "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
     "no-unused-vars": "off",
@@ -36,6 +36,29 @@ module.exports = {
       parserOptions: {
         parser: "@typescript-eslint/parser",
         extraFileExtensions: [".astro"],
+      },
+    },
+    {
+      files: ["*.tsx"],
+      plugins: ["react-hooks"],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ["./tsconfig.json"],
+      },
+      extends: [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:@typescript-eslint/recommended",
+      ],
+      rules: {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": [
+          "warn",
+          {
+            additionalHooks: "useIsomorphicLayoutEffect",
+          },
+        ],
       },
     },
     {
