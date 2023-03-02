@@ -4,12 +4,10 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "htmlWhitespaceSensitivity": "css",
-  "overrides": [
-    {
-      "files": "*.astro",
-      "options": {
-        "parser": "astro"
-      }
-    }
-  ]
+  "plugins": [
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss"
+  ],
+  "pluginSearchDirs": false,
+  "overrides": [{ "files": "*.astro", "options": { "parser": "astro" } }]
 }
