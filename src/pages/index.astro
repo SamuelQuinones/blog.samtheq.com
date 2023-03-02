@@ -1,4 +1,5 @@
 ---
+import PostCard from "@components/Blog/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
@@ -8,7 +9,8 @@ const allPosts = await getCollection("blog", ({ data }) => {
 ---
 
 <BaseLayout title="Blog | SamTheQ" description="Samuel Quinones' Personal Blog">
-  <main class="mx-auto mt-16 min-h-full w-full max-w-4xl grow scroll-mt-16 px-3">
+  <main class="bs-container-md mt-16 min-h-full max-w-[52rem] grow scroll-mt-16 px-4 pb-28">
+    <!-- sm:px-6 md:px-8 lg:max-w-6xl xl:px-12 -->
     <section data-post-heading class="pt-5">
       <h1 class="m-0 text-5xl font-extrabold">
         Welcome to <span class="text-gradient">Astro</span>
@@ -19,19 +21,7 @@ const allPosts = await getCollection("blog", ({ data }) => {
       </p>
     </section>
     <ul data-post-count={allPosts.length} class="mt-8 space-y-16">
-      {
-        allPosts.map((post) => (
-          <li data-title={post.data.title}>
-            <article>
-              <span>{post.data.publishDate.toLocaleDateString()}</span>
-              <h2>
-                <a href={`/${post.slug}`}>{post.data.title}</a>
-              </h2>
-              <p class="line-clamp-2">{post.data.description}</p>
-            </article>
-          </li>
-        ))
-      }
+      {allPosts.map((post) => <PostCard {...post.data} slug={post.slug} showTags />)}
     </ul>
   </main>
 </BaseLayout>

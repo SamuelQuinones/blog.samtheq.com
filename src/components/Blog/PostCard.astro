@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Post = CollectionEntry<"blog">["data"];
+
+export interface Props extends Post {
+  showTags?: boolean;
+  slug: string;
+}
+
+const { title, publishDate, description, slug, showTags, tags } = Astro.props;
+---
+
+<li data-title={title} class="group relative">
+  <div
+    class="absolute -inset-y-2.5 -inset-x-4 transition-colors group-hover:bg-cyan-900/30 sm:rounded-2xl md:-inset-y-4 md:-inset-x-6"
+  >
+  </div>
+  <article data-post-preview class="relative">
+    <h2 class="mb-2 text-2xl font-bold tracking-tight">{title}</h2>
+    <dl class="inline-flex font-bold italic text-gray-300">
+      <dt class="sr-only">Published on</dt>
+      <dd class="whitespace-nowrap leading-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="inline-block h-[1em] w-[1em] fill-current align-[-0.125em]"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+          ></path>
+          <path
+            d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+          ></path>
+        </svg>
+        <time datetime={publishDate.toJSON()}>
+          {publishDate.toLocaleDateString()}
+        </time>
+      </dd>
+    </dl>
+    <div
+      class="prose prose-invert my-2 max-w-none line-clamp-2 prose-p:my-0 prose-a:relative prose-a:z-10 prose-a:transition-colors"
+    >
+      <p>{description}</p>
+    </div>
+  </article>
+  <a
+    href={`/${slug}`}
+    class="mb-4 flex items-center font-medium text-blue-400 no-underline hocus:text-blue-400"
+  >
+    <span class="absolute -inset-y-2.5 -inset-x-4 sm:rounded-2xl md:-inset-y-4 md:-inset-x-6"
+    ></span>
+    <span class="relative">
+      Read Post
+      <span class="sr-only">, {title}</span>
+    </span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="relative mt-px ml-1.5 inline-block h-[1em] w-[1em] overflow-visible fill-current align-[-0.125em] text-[0.75em]"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+      ></path>
+    </svg>
+  </a>
+  {
+    showTags && (
+      <section data-tag-list class="relative inline-flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <a href={`/tags/${tag}`} class="inline-block select-none px-2 py-1 leading-4">
+            <span class="sr-only">Click or tap this tag to view other posts about</span>
+            <strong> # {tag}</strong>
+          </a>
+        ))}
+      </section>
+    )
+  }
+  <hr
+    class="pointer-events-none absolute left-0 right-0 -bottom-8 rounded-full border border-slate-300 border-opacity-30 md:hidden"
+  />
+</li>

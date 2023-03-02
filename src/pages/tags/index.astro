@@ -1,0 +1,15 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog", ({ data }) => {
+  return data.draft !== true || import.meta.env.DEV;
+});
+const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+---
+
+<BaseLayout title="Blog Tag Index" description="All Post Tags">
+  <main class="bs-container-md mt-16 min-h-full grow scroll-mt-16">
+    {uniqueTags.map((tag) => <div>{tag}</div>)}
+  </main>
+</BaseLayout>

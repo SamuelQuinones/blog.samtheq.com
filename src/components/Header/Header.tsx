@@ -41,7 +41,7 @@ export default function Header({ children, title }: HeaderProps) {
       onAnimationComplete={onAnimationComplete}
       transition={{ type: "tween", duration: 0.2 }}
     >
-      <nav className="mx-auto w-full px-3 sm:flex sm:justify-between min-[1200px]:max-w-[1140px] min-[1400px]:max-w-[1320px]">
+      <nav className="bs-container-xl sm:flex sm:justify-between">
         <section className="flex items-center justify-between py-3 sm:py-0">
           <img src="/favicon.svg" height="32" width="32" alt="SamTheQ Logo" />
           <span title={title} className="flex max-w-xl px-2 line-clamp-1">

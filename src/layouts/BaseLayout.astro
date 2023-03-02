@@ -43,6 +43,8 @@ const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
       description={description}
       url={canonicalURL && ensureTrailingSlash(canonicalURL.toString())}
     />
+    <!-- Global CSS Files -->
+    <link rel="stylesheet" href="/bs-container.css" />
 
     {authors && authors.map((author) => <meta property="article:author" content={author} />)}
     {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
@@ -51,6 +53,7 @@ const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
   <body>
     <Header client:media="not all and (min-width: 640px)" title={navTitle}>
       <NavLink href="/">All Posts</NavLink>
+      <NavLink href="/tags">Filter By Tag</NavLink>
     </Header>
     <slot />
     <Footer />
