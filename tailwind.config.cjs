@@ -1,5 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,6 +8,16 @@ module.exports = {
   safelist: ["sr-only"],
   theme: {
     extend: {
+      colors: {
+        // APPEND HERE
+        info: colors.cyan,
+        primary: colors.rose,
+        secondary: colors.slate,
+      },
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        mono: ["Fira Code VF", ...defaultTheme.fontFamily.mono],
+      },
       typography: {
         DEFAULT: {
           css: {
@@ -47,10 +58,6 @@ module.exports = {
             },
           },
         },
-      },
-      fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
-        mono: ["Fira Code VF", ...defaultTheme.fontFamily.mono],
       },
     },
   },

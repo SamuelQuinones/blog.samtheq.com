@@ -22,5 +22,10 @@ export default defineConfig({
       theme: "one-dark-pro",
     },
   },
-  integrations: [tailwind(), react()],
+  integrations: [
+    tailwind({
+      config: { applyBaseStyles: false },
+    }),
+    react(),
+  ],
 });
