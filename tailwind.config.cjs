@@ -18,7 +18,7 @@ module.exports = {
                 "&::after": {
                   opacity: 0,
                   content: `" #"`,
-                  color: "rgb(148 163 184)"
+                  color: "rgb(148 163 184)",
                 },
                 "&:hover": {
                   color: "var(--tw-prose-headings)",
@@ -55,11 +55,11 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/line-clamp"),
     plugin(({ addVariant }) => {
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("disabled-class", ["&.disabled", "&:disabled"]);
     }),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp"),
   ],
 };

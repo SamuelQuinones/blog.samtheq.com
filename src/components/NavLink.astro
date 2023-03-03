@@ -2,10 +2,14 @@
 import type { HTMLAttributes } from "astro/types";
 import clsx from "clsx";
 
-export type Props = HTMLAttributes<"a">;
-const { href, class: className, ...attrs } = Astro.props;
+export interface Props extends HTMLAttributes<"a"> {
+  highlightNested?: boolean;
+}
+const { href, class: className, highlightNested = false, ...attrs } = Astro.props;
 
-const active = Astro.url.pathname === href;
+const active = highlightNested
+  ? `/${Astro.url.pathname.split("/")[1]}` === href
+  : Astro.url.pathname === href;
 const classList = clsx("nav-link", { active }, className);
 ---
 

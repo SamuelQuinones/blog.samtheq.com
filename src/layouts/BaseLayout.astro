@@ -53,7 +53,7 @@ const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
   <body>
     <Header client:media="not all and (min-width: 640px)" title={navTitle}>
       <NavLink href="/">All Posts</NavLink>
-      <NavLink href="/tags">Filter By Tag</NavLink>
+      <NavLink highlightNested href="/tags">Filter By Tag</NavLink>
     </Header>
     <slot />
     <Footer />

@@ -1,6 +1,7 @@
 ---
 import PostCard from "@components/Blog/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { sortPosts } from "@util/BlogHelper";
 import { getCollection } from "astro:content";
 
 const allPosts = await getCollection("blog", ({ data }) => {
@@ -21,7 +22,11 @@ const allPosts = await getCollection("blog", ({ data }) => {
       </p>
     </section>
     <ul data-post-count={allPosts.length} class="mt-8 space-y-16">
-      {allPosts.map((post) => <PostCard {...post.data} slug={post.slug} showTags />)}
+      {
+        allPosts
+          .sort(sortPosts)
+          .map((post) => <PostCard {...post.data} slug={post.slug} showTags />)
+      }
     </ul>
   </main>
 </BaseLayout>

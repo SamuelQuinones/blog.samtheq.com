@@ -1,6 +1,7 @@
 ---
 import PostCard from "@components/Blog/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { sortTagFilterdPosts } from "@util/BlogHelper";
 import { capitalizeFirstLetter } from "@util/StringHelpers";
 import { type CollectionEntry, getCollection } from "astro:content";
 
@@ -42,7 +43,7 @@ const titleString = `${tag ? `${capitalizeFirstLetter(tag)} Tagged Posts` : "Blo
       </p>
     </section>
     <ul data-post-count={posts.length} class="mt-8 space-y-16">
-      {posts.map((post) => <PostCard {...post} />)}
+      {posts.sort(sortTagFilterdPosts).map((post) => <PostCard {...post} />)}
     </ul>
   </main>
 </BaseLayout>

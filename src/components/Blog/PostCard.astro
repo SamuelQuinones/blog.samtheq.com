@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import clsx from "clsx";
 
 type Post = CollectionEntry<"blog">["data"];
 
@@ -62,7 +63,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
       width="16"
       height="16"
       fill="currentColor"
-      class="relative mt-px ml-1.5 inline-block h-[1em] w-[1em] overflow-visible fill-current align-[-0.125em] text-[0.75em]"
+      class="relative mt-px ml-0.5 inline-block h-[1em] w-[1em] overflow-visible fill-current align-[-0.125em]"
       viewBox="0 0 16 16"
     >
       <path
@@ -75,7 +76,15 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
     showTags && (
       <section data-tag-list class="relative inline-flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <a href={`/tags/${tag}`} class="inline-block select-none px-2 py-1 leading-4">
+          <a
+            href={`/tags/${tag}`}
+            class={clsx(
+              "inline-block select-none rounded-md border border-slate-200 bg-slate-200 px-2 py-1 align-middle leading-4 text-black transition-colors duration-200",
+              "focus:outline-none focus:ring focus:ring-slate-50 focus:ring-opacity-50",
+              "hocus:border-slate-400 hocus:bg-slate-400 hocus:text-black",
+              "disabled-class:pointer-events-none disabled-class:cursor-not-allowed disabled-class:border-slate-200 disabled-class:bg-slate-200 disabled-class:opacity-70"
+            )}
+          >
             <span class="sr-only">Click or tap this tag to view other posts about</span>
             <strong> # {tag}</strong>
           </a>
@@ -84,6 +93,6 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
     )
   }
   <hr
-    class="pointer-events-none absolute left-0 right-0 -bottom-8 rounded-full border border-slate-300 border-opacity-30 md:hidden"
+    class="pointer-events-none absolute left-0 right-0 -bottom-8 rounded-full border border-slate-400 border-opacity-30 md:hidden"
   />
 </li>

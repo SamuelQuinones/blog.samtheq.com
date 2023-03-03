@@ -6,6 +6,8 @@ authors:
   - "https://samtheq.com"
 tags:
   - test
+  - react
+  - javascript
 ---
 
 # H1

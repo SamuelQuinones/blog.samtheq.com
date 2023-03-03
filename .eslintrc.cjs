@@ -14,7 +14,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  ignorePatterns: ["node_modules/*", "dist/*", "!.prettierrc"],
+  ignorePatterns: ["node_modules/*", "dist/*", "*.cjs", "!.prettierrc"],
   rules: {
     "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
     "no-unused-vars": "off",
@@ -40,6 +40,11 @@ module.exports = {
     },
     {
       files: ["*.tsx"],
+      settings: {
+        react: {
+          version: "detect",
+        },
+      },
       plugins: ["react-hooks"],
       parserOptions: {
         tsconfigRootDir: __dirname,
