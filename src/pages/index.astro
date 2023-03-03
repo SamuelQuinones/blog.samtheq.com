@@ -1,12 +1,10 @@
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { sortPosts } from "@util/BlogHelper";
+import { getShowablePosts, sortPosts } from "@util/BlogHelper";
 import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("blog", ({ data }) => {
-  return data.draft !== true || import.meta.env.DEV;
-});
+const allPosts = await getCollection("blog", getShowablePosts);
 ---
 
 <BaseLayout title="Blog | SamTheQ" description="Samuel Quinones' Personal Blog">

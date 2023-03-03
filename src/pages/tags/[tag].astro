@@ -1,33 +1,30 @@
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { sortTagFilterdPosts } from "@util/BlogHelper";
+import { getShowablePosts, sortPosts } from "@util/BlogHelper";
 import { capitalizeFirstLetter } from "@util/StringHelpers";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export type Props = {
-  posts: Array<CollectionEntry<"blog">["data"] & { slug: CollectionEntry<"blog">["slug"] }>;
+  posts: CollectionEntry<"blog">[];
+  tag: string;
 };
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection("blog", ({ data }) => {
-    return data.draft !== true || import.meta.env.DEV;
-  });
+  const allPosts = await getCollection("blog", getShowablePosts);
   const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 
   return uniqueTags.map((tag) => ({
     params: { tag },
     props: {
-      posts: allPosts
-        .filter((post) => post.data.tags.includes(tag))
-        .map(({ data, slug }) => ({ ...data, slug })),
+      tag,
+      posts: allPosts.filter((post) => post.data.tags.includes(tag)),
     },
   }));
 }
 
-const { posts } = Astro.props;
-const { tag } = Astro.params;
-const titleString = `${tag ? `${capitalizeFirstLetter(tag)} Tagged Posts` : "Blog"} | SamTheQ`;
+const { posts, tag } = Astro.props;
+const titleString = `${capitalizeFirstLetter(tag)} Tagged Posts | SamTheQ`;
 ---
 
 <BaseLayout title={titleString} description={`All blog posts with the ${tag} tag`}>
@@ -43,7 +40,7 @@ const titleString = `${tag ? `${capitalizeFirstLetter(tag)} Tagged Posts` : "Blo
       </p>
     </section>
     <ul data-post-count={posts.length} class="mt-8 space-y-16">
-      {posts.sort(sortTagFilterdPosts).map((post) => <PostCard {...post} />)}
+      {posts.sort(sortPosts).map((post) => <PostCard {...post.data} slug={post.slug} />)}
     </ul>
   </main>
 </BaseLayout>
