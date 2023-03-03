@@ -1,3 +1,5 @@
+// TODO: LazyMotion with astro - is it possible?
+
 import useOutsideClick from "@hooks/use-outside-click";
 import { type ReactNode, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
