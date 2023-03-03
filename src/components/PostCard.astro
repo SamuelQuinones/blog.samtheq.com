@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import clsx from "clsx";
+import Button from "./Button.astro";
 
 type Post = CollectionEntry<"blog">["data"];
 
@@ -14,7 +14,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
 
 <li data-title={title} class="group relative">
   <div
-    class="absolute -inset-y-2.5 -inset-x-4 transition-colors group-hover:bg-cyan-900/30 sm:rounded-2xl md:-inset-y-4 md:-inset-x-6"
+    class="absolute -inset-y-2.5 -inset-x-4 transition-colors group-hover:bg-info-900/30 sm:rounded-2xl md:-inset-y-4 md:-inset-x-6"
   >
   </div>
   <article data-post-preview class="relative">
@@ -76,18 +76,10 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
     showTags && (
       <section data-tag-list class="relative inline-flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <a
-            href={`/tags/${tag}`}
-            class={clsx(
-              "inline-block select-none rounded-md border border-slate-200 bg-slate-200 px-2 py-1 align-middle leading-4 text-black transition-colors duration-200",
-              "focus:outline-none focus:ring focus:ring-slate-50 focus:ring-opacity-50",
-              "hocus:border-slate-400 hocus:bg-slate-400 hocus:text-black",
-              "disabled-class:pointer-events-none disabled-class:cursor-not-allowed disabled-class:border-slate-200 disabled-class:bg-slate-200 disabled-class:opacity-70"
-            )}
-          >
+          <Button href={`/tags/${tag}`} variant="secondary" class="px-2 py-1 leading-4">
             <span class="sr-only">Click or tap this tag to view other posts about</span>
             <strong> # {tag}</strong>
-          </a>
+          </Button>
         ))}
       </section>
     )

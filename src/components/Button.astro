@@ -1,0 +1,54 @@
+---
+export interface Props {
+  outline?: boolean;
+  variant?: string;
+  disabled?: boolean;
+  shape?: "pill" | "square" | "default";
+  class?: string;
+  type?: "button" | "submit" | "reset";
+  [x: string]: any;
+}
+
+const {
+  outline,
+  variant = "primary",
+  disabled,
+  shape,
+  class: className,
+  type,
+  href,
+  ...props
+} = Astro.props;
+
+const Component = href ? "a" : "button";
+
+const extraProps = {
+  "aria-disabled": Component === "a" ? (!disabled ? undefined : disabled) : undefined,
+  disabled: Component === "a" ? undefined : disabled,
+  tabindex:
+    Component === "a"
+      ? disabled
+        ? undefined
+        : props.tabindex != undefined
+        ? (props.tabindex as number)
+        : 0
+      : (props.tabindex as number),
+};
+---
+
+<Component
+  {...props}
+  {...extraProps}
+  href={href}
+  type={type}
+  class:list={[
+    "btn",
+    { [`btn-${variant}`]: !outline, [`btn-outline-${variant}`]: outline },
+    { disabled: disabled },
+    shape === "pill" && "rounded-full",
+    shape === "square" && "rounded-none",
+    className,
+  ]}
+>
+  <slot />
+</Component>
