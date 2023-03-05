@@ -15,6 +15,7 @@
   "dependencies": {
     "@astrojs/react": "2.0.2",
     "@astrojs/rss": "2.1.1",
+    "@astrojs/sitemap": "1.1.0",
     "@astrojs/tailwind": "3.0.1",
     "astro": "2.0.17",
     "framer-motion": "10.0.1",

@@ -25,7 +25,7 @@ const {
   canonicalURL = new URL(Astro.request.url, Astro.site),
 } = Astro.props;
 
-const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
+// const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
 ---
 
 <!DOCTYPE html>
@@ -39,11 +39,7 @@ const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
 
     <title set:html={title} />
 
-    <SEO
-      title={title}
-      description={description}
-      url={canonicalURL && ensureTrailingSlash(canonicalURL.toString())}
-    />
+    <SEO title={title} description={description} url={canonicalURL && canonicalURL.toString()} />
     <!-- Global CSS Files -->
     <link rel="stylesheet" href="/bs-container.css" />
 
