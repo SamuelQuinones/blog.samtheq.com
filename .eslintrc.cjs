@@ -24,6 +24,7 @@ module.exports = {
       { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
     ],
     "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
   overrides: [
     {
