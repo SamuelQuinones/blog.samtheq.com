@@ -1,7 +1,7 @@
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getShowablePosts, sortPosts } from "@util/BlogHelper";
+import { getShowablePosts, getUniqueTags, sortPosts } from "@util/BlogHelper";
 import { capitalizeFirstLetter } from "@util/StringHelpers";
 import { type CollectionEntry, getCollection } from "astro:content";
 
@@ -12,7 +12,7 @@ export type Props = {
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog", getShowablePosts);
-  const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+  const uniqueTags = getUniqueTags(allPosts);
 
   return uniqueTags.map((tag) => ({
     params: { tag },

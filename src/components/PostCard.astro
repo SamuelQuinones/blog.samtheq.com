@@ -1,10 +1,8 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { BlogFrontmatter } from "src/content/_schemas";
 import Button from "./Button.astro";
 
-type Post = CollectionEntry<"blog">["data"];
-
-export interface Props extends Post {
+export interface Props extends BlogFrontmatter {
   showTags?: boolean;
   slug: string;
 }

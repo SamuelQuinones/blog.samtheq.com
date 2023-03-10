@@ -1,8 +1,8 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { BlogFrontmatter } from "src/content/_schemas";
 import BaseLayout from "./BaseLayout.astro";
 
-export type Props = CollectionEntry<"blog">["data"];
+export type Props = BlogFrontmatter;
 
 const { authors, description, publishDate, tags, title } = Astro.props;
 ---

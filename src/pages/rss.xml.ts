@@ -3,10 +3,11 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import sanitizeHtml from "sanitize-html";
 import MarkdownIt from "markdown-it";
+import { getShowablePosts } from "@util/BlogHelper";
 const parser = new MarkdownIt();
 
 export async function get(context: APIContext) {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", getShowablePosts);
   return rss({
     title: "SamTheQ | Blog",
     description: "My blog site",

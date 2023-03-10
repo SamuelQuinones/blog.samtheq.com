@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { getShowablePosts, getUniqueTags } from "@util/BlogHelper";
 import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("blog", ({ data }) => {
-  return data.draft !== true || import.meta.env.DEV;
-});
-const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+const allPosts = await getCollection("blog", getShowablePosts);
+const uniqueTags = getUniqueTags(allPosts);
 ---
 
 <BaseLayout title="Blog Tag Index" description="All Post Tags">
@@ -50,27 +49,27 @@ const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
     @apply inline-block select-none rounded-md border border-neutral-600 bg-neutral-600 px-3 py-1.5 align-middle text-xl text-white transition-colors duration-200 hocus:border-neutral-700 hocus:bg-neutral-700 hocus:text-white lg:text-2xl;
   }
 
-  .react {
+  .tag.react {
     @apply border-gray-800 bg-gray-800 text-sky-500 hocus:border-gray-900 hocus:bg-gray-900;
   }
 
-  .nextjs {
+  .tag.nextjs {
     @apply border-black bg-black text-white hocus:border-stone-900 hocus:bg-stone-900;
   }
 
-  .javascript {
+  .tag.javascript {
     @apply border-yellow-400 bg-yellow-400 text-black hocus:border-yellow-500 hocus:bg-yellow-500;
   }
 
-  .typescript {
+  .tag.typescript {
     @apply border-blue-600 bg-blue-600 text-white hocus:border-blue-700 hocus:bg-blue-700;
   }
 
-  .css {
+  .tag.css {
     @apply border-pink-400 bg-pink-400 text-black hocus:border-pink-300 hocus:bg-pink-300;
   }
 
-  .svelte {
+  .tag.svelte {
     @apply border-orange-700 bg-orange-700 text-white hocus:border-orange-600 hocus:bg-orange-600;
   }
 </style>

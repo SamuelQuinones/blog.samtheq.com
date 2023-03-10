@@ -11,3 +11,5 @@ export const blogSchema = z.object({
   authors: z.array(z.string().url()).default(["https://samtheq.com/"]),
   draft: z.boolean().optional(),
 });
+
+export type BlogFrontmatter = z.infer<typeof blogSchema>;

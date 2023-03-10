@@ -17,3 +17,12 @@ export function sortPosts(a: CollectionEntry<"blog">, b: CollectionEntry<"blog">
 export function getShowablePosts(entry: CollectionEntry<"blog">) {
   return entry.data.draft !== true || import.meta.env.DEV;
 }
+
+export function getUniqueTags(posts: CollectionEntry<"blog">[]) {
+  let tags: string[] = [];
+
+  posts.forEach((post) => {
+    tags = [...tags, ...post.data.tags];
+  });
+  return [...new Set(tags)];
+}
