@@ -6,6 +6,8 @@ import MarkdownIt from "markdown-it";
 import { getShowablePosts } from "@util/BlogHelper";
 const parser = new MarkdownIt();
 
+export const prerender = true;
+
 export async function get(context: APIContext) {
   const posts = await getCollection("blog", getShowablePosts);
   return rss({
