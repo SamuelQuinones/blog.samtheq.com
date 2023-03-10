@@ -45,7 +45,7 @@ export default function Header({ children, title }: HeaderProps) {
     >
       <nav className="bs-container-xl sm:flex sm:justify-between">
         <section className="flex items-center justify-between py-3 sm:py-0">
-          <img src="/favicon.svg" height="32" width="32" alt="SamTheQ Logo" />
+          <img src="/favicon.ico" height="32" width="32" alt="SamTheQ Logo" />
           <span title={title} className="flex max-w-xl px-2 line-clamp-1">
             {title}
           </span>
