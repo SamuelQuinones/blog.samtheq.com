@@ -39,8 +39,17 @@ const titleString = `${capitalizeFirstLetter(tag)} Tagged Posts | SamTheQ`;
         <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
       </p>
     </section>
-    <ul data-post-count={posts.length} class="mt-8 space-y-16">
-      {posts.sort(sortPosts).map((post) => <PostCard {...post.data} slug={post.slug} />)}
+    <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-16">
+      {
+        posts.length > 0 ? (
+          posts.sort(sortPosts).map((post) => <PostCard {...post.data} slug={post.slug} />)
+        ) : (
+          <li class="text-xl md:text-center lg:text-2xl">
+            <p class="mb-3">Huh, it looks like there are no posts available to read.</p>
+            <p>Try checking back in the future!</p>
+          </li>
+        )
+      }
     </ul>
   </main>
 </BaseLayout>
