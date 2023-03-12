@@ -11,7 +11,7 @@ export interface Props {
   description: string;
   authors?: string[];
   publishDate?: string;
-  canonicalURL?: URL | null;
+  canonicalURL?: URL;
   tags?: string[];
 }
 
@@ -24,8 +24,6 @@ const {
   navTitle = "SamTheQ Blog",
   canonicalURL = new URL(Astro.request.url, Astro.site),
 } = Astro.props;
-
-// const ensureTrailingSlash = (url: string) => url.replace(/\/$/, "") + "/";
 ---
 
 <!DOCTYPE html>
@@ -39,7 +37,7 @@ const {
 
     <title set:html={title} />
 
-    <SEO title={title} description={description} url={canonicalURL && canonicalURL.toString()} />
+    <SEO title={title} description={description} canonicalURL={canonicalURL} />
     <!-- Global CSS Files -->
     <link rel="stylesheet" href="/bs-container.css" />
 

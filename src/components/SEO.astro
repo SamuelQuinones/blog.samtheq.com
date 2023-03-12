@@ -2,12 +2,13 @@
 export interface Props {
   title: string;
   description: string;
-  url?: string | null;
+  canonicalURL?: URL | string;
 }
 
-const { description, title, url } = Astro.props;
+const { description, title, canonicalURL = new URL(Astro.url.pathname, Astro.site) } = Astro.props;
 
 const siteName = "SamTheQ Blog";
+// const ensureTrailingSlash = (url: string | URL) => url.toString().replace(/\/$/, "") + "/"
 ---
 
 <meta name="mobile-web-app-capable" content="yes" />
@@ -15,7 +16,7 @@ const siteName = "SamTheQ Blog";
 <meta name="apple-mobile-web-app-title" content={siteName} />
 
 <meta name="description" content={description} />
-<link rel="canonical" href={url} />
+<link rel="canonical" href={canonicalURL.toString()} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
 
@@ -26,7 +27,7 @@ const siteName = "SamTheQ Blog";
 <meta property="og:image" content="https://samtheq.com/Logo_866.png" />
 <meta property="og:image:alt" content="SamTheQ logo" />
 <meta property="og:image:type" content="image/png" />
-<meta property="og:url" content={url} />
+<meta property="og:url" content={canonicalURL.toString()} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary" />
