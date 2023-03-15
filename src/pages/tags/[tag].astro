@@ -5,6 +5,8 @@ import { getShowablePosts, getUniqueTags, sortPosts } from "@util/BlogHelper";
 import { capitalizeFirstLetter } from "@util/StringHelpers";
 import { type CollectionEntry, getCollection } from "astro:content";
 
+export const prerender = true;
+
 export type Props = {
   posts: CollectionEntry<"blog">[];
   tag: string;
