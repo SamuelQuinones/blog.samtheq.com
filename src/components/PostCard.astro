@@ -1,8 +1,7 @@
 ---
 import type { BlogFrontmatter } from "src/content/_schemas";
 import Button from "./Button.astro";
-import format from "date-fns/format";
-import formatISO from "date-fns/formatISO";
+import { format, formatISO } from "date-fns";
 
 export interface Props extends BlogFrontmatter {
   showTags?: boolean;
