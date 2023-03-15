@@ -2,6 +2,7 @@
 title: "Test Blog Post"
 description: "Test post description"
 publishDate: "2023-02-06T16:15:30.726Z"
+lastUpdated: "2023-03-14T22:13:22.000-04:00"
 authors:
   - "https://samtheq.com"
 tags:

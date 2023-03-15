@@ -1,6 +1,8 @@
 ---
 import type { BlogFrontmatter } from "src/content/_schemas";
 import Button from "./Button.astro";
+import format from "date-fns/format";
+import formatISO from "date-fns/formatISO";
 
 export interface Props extends BlogFrontmatter {
   showTags?: boolean;
@@ -25,7 +27,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
           width="16"
           height="16"
           fill="currentColor"
-          class="inline-block h-[1em] w-[1em] fill-current align-[-0.125em]"
+          class="mr-2 inline-block h-[1em] w-[1em] fill-current align-[-0.125em]"
           viewBox="0 0 16 16"
         >
           <path
@@ -35,8 +37,8 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
             d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
           ></path>
         </svg>
-        <time datetime={publishDate.toJSON()}>
-          {publishDate.toLocaleDateString()}
+        <time datetime={formatISO(publishDate)}>
+          {format(publishDate, "MMMM do yyyy")}
         </time>
       </dd>
     </dl>

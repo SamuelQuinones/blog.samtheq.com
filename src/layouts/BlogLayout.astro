@@ -1,10 +1,12 @@
 ---
+import Button from "@components/Button.astro";
+import format from "date-fns/format";
 import type { BlogFrontmatter } from "src/content/_schemas";
 import BaseLayout from "./BaseLayout.astro";
 
 export type Props = BlogFrontmatter;
 
-const { authors, description, publishDate, tags, title } = Astro.props;
+const { authors, description, publishDate, tags, title, lastUpdated } = Astro.props;
 ---
 
 <BaseLayout
@@ -13,19 +15,32 @@ const { authors, description, publishDate, tags, title } = Astro.props;
   description={description}
   authors={authors}
   tags={tags}
-  publishDate={publishDate.toJSON()}
+  publishDate={publishDate}
+  lastUpdated={lastUpdated}
 >
-  <article class="bs-container-md mt-16 max-w-4xl grow scroll-mt-16">
+  <article id="stq-page-content" class="bs-container-md mt-16 max-w-4xl grow scroll-mt-16">
     <section data-time-meta class="pb-5 text-sm text-gray-300 md:text-base">
-      <p>
-        Originally published on {publishDate.toJSON()}
+      <p class="mb-2">
+        Originally published on {format(publishDate, "MMMM do, yyyy")}
       </p>
+      {
+        lastUpdated && (
+          <p class="mt-2 italic">Last Edited on {format(lastUpdated, "MMMM do, yyyy")}</p>
+        )
+      }
+    </section>
+    <section data-tag-list class="inline-flex flex-wrap gap-2 pb-5">
+      {
+        tags.map((val) => (
+          <Button variant="info" href={`/tags/${val}`} class="px-2 py-1 leading-4">
+            <span class="sr-only">Click or tap this tag to view other posts about</span>
+            <strong> # {val}</strong>
+          </Button>
+        ))
+      }
     </section>
     <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl">
       <h1 class="lg:!text-5xl">{title}</h1>
-      <div data-tag-list class="not-prose flex gap-2 pb-3">
-        {tags.map((val) => <span>{val}</span>)}
-      </div>
       <slot />
     </section>
   </article>

@@ -3,6 +3,7 @@ import Footer from "@components/Footer.astro";
 import Header from "@components/Header/Header";
 import NavLink from "@components/NavLink.astro";
 import SEO from "@components/SEO.astro";
+import formatISO from "date-fns/formatISO";
 import "../styles/globals.css";
 
 export interface Props {
@@ -10,7 +11,8 @@ export interface Props {
   navTitle?: string;
   description: string;
   authors?: string[];
-  publishDate?: string;
+  publishDate?: Date;
+  lastUpdated?: Date;
   canonicalURL?: URL;
   tags?: string[];
 }
@@ -20,6 +22,7 @@ const {
   description,
   authors,
   publishDate,
+  lastUpdated,
   tags,
   navTitle = "SamTheQ Blog",
   canonicalURL = new URL(Astro.request.url, Astro.site),
@@ -43,7 +46,8 @@ const {
 
     {authors && authors.map((author) => <meta property="article:author" content={author} />)}
     {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
-    {publishDate && <meta property="article:published_time" content={publishDate} />}
+    {publishDate && <meta property="article:published_time" content={formatISO(publishDate)} />}
+    {lastUpdated && <meta property="article:modified_time" content={formatISO(lastUpdated)} />}
   </head>
   <body>
     <Header client:media="not all and (min-width: 640px)" title={navTitle}>
@@ -74,6 +78,32 @@ const {
         display: flex;
         flex-direction: column;
         min-height: 100%;
+      }
+
+      [data-nav-skip-link] {
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        position: absolute;
+        margin: -1px;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        padding: 0;
+        color: white;
+      }
+      [data-nav-skip-link]:hover {
+        color: rgb(203 213 225);
+      }
+      [data-nav-skip-link]:focus {
+        clip: auto;
+        position: fixed;
+        top: 0.25rem;
+        left: 0.25rem;
+        z-index: 10;
+        height: auto;
+        width: auto;
+        padding: 0.75rem;
+        background-color: rgb(75, 85, 99);
       }
 
       @font-face {
