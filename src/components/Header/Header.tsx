@@ -44,6 +44,9 @@ export default function Header({ children, title }: HeaderProps) {
       transition={{ type: "tween", duration: 0.2 }}
     >
       <nav className="bs-container-xl sm:flex sm:justify-between">
+        <a href="#stq-page-content" data-nav-skip-link="true">
+          Skip To Content
+        </a>
         <section className="flex items-center justify-between py-3 sm:py-0">
           <img src="/favicon.ico" height="32" width="32" alt="SamTheQ Logo" />
           <span title={title} className="flex max-w-xl px-2 line-clamp-1">
