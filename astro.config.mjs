@@ -1,3 +1,5 @@
+// TODO: Fix footnotes because apparently linkify doesnt discriminate
+
 import { defineConfig } from "astro/config";
 import vercel from "@astrojs/vercel/static";
 // Markdown plugins

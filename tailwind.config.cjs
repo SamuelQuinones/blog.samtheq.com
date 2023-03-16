@@ -21,6 +21,9 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            "sup > a[data-footnote-ref]": {
+              scrollMarginTop: "4rem",
+            },
             "h1,h2,h3,h4,h5,h6": {
               scrollMarginTop: "4rem",
               "> a": {
@@ -42,10 +45,10 @@ module.exports = {
             code: {
               fontVariantLigatures: "none",
               "&::before": {
-                content: `none`,
+                content: `none !important`,
               },
               "&::after": {
-                content: `none`,
+                content: `none !important`,
               },
               fontWeight: "normal",
             },
