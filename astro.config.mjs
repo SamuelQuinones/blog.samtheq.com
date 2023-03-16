@@ -12,6 +12,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://blog.samtheq.com",
+  server: ({ command }) => ({ port: command === "dev" ? 5665 : 6116 }),
   markdown: {
     gfm: true,
     rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y],

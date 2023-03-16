@@ -42,10 +42,10 @@ module.exports = {
             code: {
               fontVariantLigatures: "none",
               "&::before": {
-                content: `"" !important`,
+                content: `none`,
               },
               "&::after": {
-                content: `"" !important`,
+                content: `none`,
               },
               fontWeight: "normal",
             },

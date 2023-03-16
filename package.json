@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev --port 5665 --site http://localhost:5665",
+    "dev": "astro dev --site http://localhost:5665",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview --port 6116",
+    "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint \"src/**/*.{ts,tsx,astro}\" && prettier -c \"src/**/*.{json,css,astro}\"",
     "format": "eslint --fix \"src/**/*.{ts,tsx,astro}\" && prettier -w \"src/**/*.{json,css,astro}\""
