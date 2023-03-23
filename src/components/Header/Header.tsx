@@ -49,7 +49,7 @@ export default function Header({ children, title }: HeaderProps) {
         </a>
         <section className="flex items-center justify-between py-3 sm:py-0">
           <img src="/favicon.ico" height="32" width="32" alt="SamTheQ Logo" />
-          <span title={title} className="flex max-w-xl px-2 line-clamp-1">
+          <span title={title} className="line-clamp-1 flex max-w-xl px-2">
             {title}
           </span>
           <div className="flex sm:hidden">

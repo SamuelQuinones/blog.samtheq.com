@@ -66,7 +66,6 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp"),
     plugin(({ addVariant }) => {
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("disabled-class", ["&.disabled", "&:disabled"]);

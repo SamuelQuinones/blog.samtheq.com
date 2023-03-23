@@ -13,7 +13,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
 
 <li data-title={title} class="group relative">
   <div
-    class="absolute -inset-y-2.5 -inset-x-4 transition-colors group-hover:bg-info-900/30 sm:rounded-2xl md:-inset-y-4 md:-inset-x-6"
+    class="absolute -inset-x-4 -inset-y-2.5 transition-colors group-hover:bg-info-900/30 sm:rounded-2xl md:-inset-x-6 md:-inset-y-4"
   >
   </div>
   <article data-post-preview class="relative">
@@ -42,7 +42,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
       </dd>
     </dl>
     <div
-      class="prose prose-invert my-2 max-w-none line-clamp-2 prose-p:my-0 prose-a:relative prose-a:z-10 prose-a:transition-colors"
+      class="prose prose-invert my-2 line-clamp-2 max-w-none prose-p:my-0 prose-a:relative prose-a:z-10 prose-a:transition-colors"
     >
       <p>{description}</p>
     </div>
@@ -51,7 +51,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
     href={`/${slug}`}
     class="mb-4 flex items-center font-medium text-blue-400 no-underline hocus:text-blue-400"
   >
-    <span class="absolute -inset-y-2.5 -inset-x-4 sm:rounded-2xl md:-inset-y-4 md:-inset-x-6"
+    <span class="absolute -inset-x-4 -inset-y-2.5 sm:rounded-2xl md:-inset-x-6 md:-inset-y-4"
     ></span>
     <span class="relative">
       Read Post
@@ -62,7 +62,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
       width="16"
       height="16"
       fill="currentColor"
-      class="relative mt-px ml-0.5 inline-block h-[1em] w-[1em] overflow-visible fill-current align-[-0.125em]"
+      class="relative ml-0.5 mt-px inline-block h-[1em] w-[1em] overflow-visible fill-current align-[-0.125em]"
       viewBox="0 0 16 16"
     >
       <path
@@ -84,6 +84,6 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
     )
   }
   <hr
-    class="pointer-events-none absolute left-0 right-0 -bottom-8 rounded-full border border-slate-400 border-opacity-30 md:hidden"
+    class="pointer-events-none absolute -bottom-8 left-0 right-0 rounded-full border border-slate-400 border-opacity-30 md:hidden"
   />
 </li>
