@@ -20,21 +20,10 @@ const posts = await getCollection("blog", getShowablePosts);
         Welcome
       </h1>
       <p class="mb-3">
-        I'll write posts about anything that generally interests me; development, keyboards,
-        personal thoughts / ramblings, and I'm sure a bunch more!
-      </p>
-      <p class="mb-3">
-        Each post also contains tags used to help classify them. By clicking on one of the tag
-        buttons on a post card, you can find a subset of all posts that contain that tag.
-      </p>
-      <p class="mb-3">
-        Or, you can see all tags by clicking <em class="font-bold">Filter By Tag</em> in the navbar!
-        This will take you to a different page.
-      </p>
-      <p>
         This page only shows a brief preview of each post, be sure to click on "Read More" to view
         the full article.
       </p>
+      <p>Want some more info? check out the about page!</p>
     </section>
     <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-16">
       {
