@@ -1,9 +1,9 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-const plugin = require("tailwindcss/plugin");
-const colors = require("tailwindcss/colors");
+import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
+import colors from "tailwindcss/colors";
+import type { Config } from "tailwindcss";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   safelist: ["sr-only"],
   theme: {
@@ -71,4 +71,4 @@ module.exports = {
       addVariant("disabled-class", ["&.disabled", "&:disabled"]);
     }),
   ],
-};
+} satisfies Config;
