@@ -29,11 +29,7 @@ const makeTopBottom = (mult: 1 | -1, moveY: number) => {
 };
 export const burgerTop = makeTopBottom(1, 0.625);
 export const burgerMiddle = {
-  open: {
-    opacity: 0,
-  },
-  closed: {
-    opacity: 1,
-  },
+  open: { opacity: 0 },
+  closed: { opacity: 1 },
 };
 export const burgerBottom = makeTopBottom(-1, 0.7);
