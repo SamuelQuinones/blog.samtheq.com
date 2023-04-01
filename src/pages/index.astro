@@ -25,7 +25,7 @@ const posts = await getCollection("blog", getShowablePosts);
       </p>
       <p>Want some more info? check out the about page!</p>
     </section>
-    <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-16">
+    <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-8">
       {
         posts.length > 0 ? (
           posts.sort(sortPosts).map((post) => <PostCard {...post.data} slug={post.slug} showTags />)
