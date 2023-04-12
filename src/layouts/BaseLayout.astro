@@ -32,22 +32,26 @@ const {
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Global Meta -->
     <meta charset="UTF-8" />
     <meta name="generator" content={Astro.generator} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="author" content="Samuel Quinones" />
-
-    <title set:html={title} />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="robots" content="follow, index" />
+    <meta name="apple-mobile-web-app-title" content="SamTheQ Blog" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
 
     <SEO title={title} description={description} canonicalURL={canonicalURL} />
-    <!-- Global CSS Files -->
-    <link rel="stylesheet" href="/bs-container.css" />
 
     {authors && authors.map((author) => <meta property="article:author" content={author} />)}
     {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
     {publishDate && <meta property="article:published_time" content={formatISO(publishDate)} />}
     {lastUpdated && <meta property="article:modified_time" content={formatISO(lastUpdated)} />}
+    <!-- Global CSS Files -->
+    <link rel="stylesheet" href="/bs-container.css" />
   </head>
   <body>
     <Header client:media="not all and (min-width: 640px)" title={navTitle}>
