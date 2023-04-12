@@ -1,7 +1,9 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import BlogLayout from "@layouts/BlogLayout.astro";
 import { getShowablePosts } from "@util/BlogHelper";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
+import { format } from "date-fns";
 
 export const prerender = true;
 
@@ -15,11 +17,48 @@ export async function getStaticPaths() {
   }));
 }
 
-const { data, render, slug } = Astro.props;
+const {
+  data: { title, publishDate, description, authors, tags, lastUpdated },
+  render,
+  slug,
+} = Astro.props;
 const { Content, headings } = await render();
 console.log("TOC: ", slug, headings);
 ---
 
-<BlogLayout {...data}>
-  <Content />
-</BlogLayout>
+<BaseLayout
+  title={title}
+  navTitle={title}
+  description={description}
+  authors={authors}
+  tags={tags}
+  publishDate={publishDate}
+  lastUpdated={lastUpdated}
+>
+  <article id="stq-page-content" class="bs-container-md mt-16 max-w-4xl grow scroll-mt-16">
+    <section data-time-meta class="pb-5 text-sm text-gray-300 md:text-base">
+      <p class="mb-2">
+        Originally published on {format(publishDate, "MMMM do, yyyy")}
+      </p>
+      {
+        lastUpdated && (
+          <p class="mt-2 italic">Last Edited on {format(lastUpdated, "MMMM do, yyyy")}</p>
+        )
+      }
+    </section>
+    <section data-tag-list class="inline-flex flex-wrap gap-2 pb-5">
+      {
+        tags.map((val) => (
+          <Button variant="info" href={`/tags/${val}`} class="px-2 py-1 leading-4">
+            <span class="sr-only">Click or tap this tag to view other posts about</span>
+            <strong> # {val}</strong>
+          </Button>
+        ))
+      }
+    </section>
+    <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl">
+      <h1 class="lg:!text-5xl">{title}</h1>
+      <Content />
+    </section>
+  </article>
+</BaseLayout>
