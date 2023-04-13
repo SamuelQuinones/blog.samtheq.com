@@ -1,10 +1,10 @@
 ---
+import "../styles/globals.css";
 import Footer from "@components/Footer.astro";
-import Header from "@components/Header/NavBar";
+import NavBar from "@components/Header/NavBar";
 import NavLink from "@components/Header/NavLink.astro";
 import SEO from "@components/SEO.astro";
 import { formatISO } from "date-fns";
-import "../styles/globals.css";
 
 export interface Props {
   title: string;
@@ -17,6 +17,8 @@ export interface Props {
   tags?: string[];
 }
 
+const siteName = "SamTheQ Blog";
+
 const {
   title,
   description,
@@ -24,9 +26,11 @@ const {
   publishDate,
   lastUpdated,
   tags,
-  navTitle = "SamTheQ Blog",
+  navTitle = siteName,
   canonicalURL = new URL(Astro.request.url, Astro.site),
 } = Astro.props;
+
+const updatedTitle = [title, siteName].join(" | ");
 ---
 
 <!DOCTYPE html>
@@ -40,11 +44,16 @@ const {
     <meta name="author" content="Samuel Quinones" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="robots" content="follow, index" />
-    <meta name="apple-mobile-web-app-title" content="SamTheQ Blog" />
+    <meta name="apple-mobile-web-app-title" content={siteName} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
 
-    <SEO title={title} description={description} canonicalURL={canonicalURL} />
+    <SEO
+      title={updatedTitle}
+      siteName={siteName}
+      description={description}
+      canonicalURL={canonicalURL}
+    />
 
     {authors && authors.map((author) => <meta property="article:author" content={author} />)}
     {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
@@ -54,11 +63,11 @@ const {
     <link rel="stylesheet" href="/bs-container.css" />
   </head>
   <body>
-    <Header client:media="not all and (min-width: 640px)" title={navTitle}>
+    <NavBar client:media="not all and (min-width: 640px)" title={navTitle}>
       <NavLink href="/">All Posts</NavLink>
       <NavLink highlightNested href="/tags">Filter By Tag</NavLink>
       <NavLink href="/about">About</NavLink>
-    </Header>
+    </NavBar>
     <slot />
     <Footer />
     <style is:global>

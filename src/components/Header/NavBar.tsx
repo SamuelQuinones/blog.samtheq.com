@@ -5,7 +5,7 @@ import { type ReactNode, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 
-interface HeaderProps {
+interface NavbarProps {
   children?: ReactNode;
   title: string;
 }
@@ -39,7 +39,7 @@ const burgerMiddle = {
 };
 const burgerBottom = makeTopBottom(-1, 0.7);
 
-export default function Header({ children, title }: HeaderProps) {
+export default function Navbar({ children, title }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const toggleNavbar = () => setOpen((prev) => !prev);
 

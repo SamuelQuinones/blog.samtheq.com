@@ -1,4 +1,5 @@
 ---
+import Button from "@components/Button.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getShowablePosts, getUniqueTags } from "@util/BlogHelper";
 import { getCollection } from "astro:content";
@@ -32,14 +33,9 @@ const uniqueTags = getUniqueTags(allPosts);
     <section class="relative inline-flex flex-wrap gap-2">
       {
         uniqueTags.map((tag) => (
-          <a
-            href={`/tags/${tag}`}
-            tabindex="0"
-            role="button"
-            class:list={["tag", tag, "font-bold"]}
-          >
+          <Button href={`/tags/${tag}`} class:list={["tag", tag, "font-bold"]}>
             {tag}
-          </a>
+          </Button>
         ))
       }
     </section>
@@ -48,7 +44,7 @@ const uniqueTags = getUniqueTags(allPosts);
 
 <style>
   .tag {
-    @apply inline-block select-none rounded-md border border-neutral-600 bg-neutral-600 px-3 py-1.5 align-middle text-xl text-white transition-colors duration-200 hocus:border-neutral-700 hocus:bg-neutral-700 hocus:text-white lg:text-2xl;
+    @apply border-neutral-600 bg-neutral-600 text-xl text-white focus:outline-offset-0 focus:outline-cyan-400 focus:ring-0 hocus:border-neutral-700 hocus:bg-neutral-700 hocus:text-white lg:text-2xl;
   }
 
   .tag.react {
