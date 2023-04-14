@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import Footer from "@components/Footer.astro";
 import NavBar from "@components/Header/NavBar";
 import NavLink from "@components/Header/NavLink.astro";
-import SEO from "@components/SEO.astro";
+import SEO, { type OGImage } from "@components/SEO.astro";
 import { formatISO } from "date-fns";
 
 export interface Props {
@@ -15,6 +15,7 @@ export interface Props {
   lastUpdated?: Date;
   canonicalURL?: URL;
   tags?: string[];
+  ogImage?: OGImage;
 }
 
 const siteName = "SamTheQ Blog";
@@ -26,6 +27,7 @@ const {
   publishDate,
   lastUpdated,
   tags,
+  ogImage = { src: "https://samtheq.com/Logo_866.png", alt: "SamTheQ Logo", type: "image/png" },
   navTitle = siteName,
   canonicalURL = new URL(Astro.request.url, Astro.site),
 } = Astro.props;
@@ -53,6 +55,7 @@ const updatedTitle = [title, siteName].join(" | ");
       siteName={siteName}
       description={description}
       canonicalURL={canonicalURL}
+      ogImage={ogImage}
     />
 
     {authors && authors.map((author) => <meta property="article:author" content={author} />)}

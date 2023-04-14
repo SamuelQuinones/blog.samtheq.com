@@ -1,9 +1,16 @@
 ---
+export interface OGImage {
+  src: string;
+  alt: string;
+  type: string;
+}
+
 export interface Props {
   title: string;
   siteName: string;
   description: string;
   canonicalURL?: URL | string;
+  ogImage: OGImage;
 }
 
 const {
@@ -11,6 +18,7 @@ const {
   title,
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   siteName,
+  ogImage,
 } = Astro.props;
 
 const ensureTrailingSlash = (url: string | URL) => url.toString().replace(/\/$/, "") + "/";
@@ -25,9 +33,9 @@ const ensureTrailingSlash = (url: string | URL) => url.toString().replace(/\/$/,
 <meta name="og:type" property="og:type" content="article" />
 <meta property="og:description" content={description} />
 <meta property="og:title" content={title} />
-<meta property="og:image" content="https://samtheq.com/Logo_866.png" />
-<meta property="og:image:alt" content="SamTheQ logo" />
-<meta property="og:image:type" content="image/png" />
+<meta property="og:image" content={ogImage.src} />
+<meta property="og:image:alt" content={ogImage.alt} />
+<meta property="og:image:type" content={ogImage.type} />
 <meta property="og:url" content={ensureTrailingSlash(canonicalURL)} />
 <!-- Twitter -->
 <meta name="twitter:card" content="summary" />
@@ -35,3 +43,5 @@ const ensureTrailingSlash = (url: string | URL) => url.toString().replace(/\/$/,
 <meta name="twitter:creator" content="@SamuelQuinones1" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage.src} />
+<meta name="twitter:image:alt" content={ogImage.alt} />
