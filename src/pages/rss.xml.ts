@@ -13,7 +13,7 @@ export async function get(context: APIContext) {
   const posts = unsortedPosts.sort(sortPosts);
   return rss({
     title: "SamTheQ | Blog",
-    description: "My blog site",
+    description: "Samuel Quinones' Personal Blog",
     site: context.site!.toString(),
     items: posts.map((post) => ({
       title: post.data.title,

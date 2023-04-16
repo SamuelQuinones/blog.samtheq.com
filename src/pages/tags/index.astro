@@ -10,7 +10,7 @@ const allPosts = await getCollection("blog", getShowablePosts);
 const uniqueTags = getUniqueTags(allPosts);
 ---
 
-<BaseLayout title="Blog Tag Index" description="All Post Tags">
+<BaseLayout title="Blog Tags" description="All Post Tags">
   <main id="stq-page-content" class="bs-container-md mt-16 grow scroll-mt-16">
     <section class="my-8 grid items-center md:grid-cols-2">
       <div data-heading>
@@ -33,7 +33,7 @@ const uniqueTags = getUniqueTags(allPosts);
     <section class="relative inline-flex flex-wrap gap-2">
       {
         uniqueTags.map((tag) => (
-          <Button href={`/tags/${tag}`} class:list={["tag", tag, "font-bold"]}>
+          <Button href={`/tags/${tag}`} variant="tag" class:list={["tag", tag, "font-bold"]}>
             {tag}
           </Button>
         ))

@@ -19,6 +19,14 @@ module.exports = {
         mono: ["Fira Code VF", ...defaultTheme.fontFamily.mono],
       },
       typography: {
+        xl: {
+          css: {
+            pre: {
+              lineHeight: 1.5,
+              fontSize: "1rem",
+            },
+          },
+        },
         DEFAULT: {
           css: {
             "sup > a[data-footnote-ref]": {
@@ -41,6 +49,9 @@ module.exports = {
                   },
                 },
               },
+            },
+            pre: {
+              lineHeight: 1.5,
             },
             code: {
               fontVariantLigatures: "none",
