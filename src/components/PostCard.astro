@@ -13,7 +13,7 @@ const { title, publishDate, description, slug, showTags, tags } = Astro.props;
 
 <li data-title={title}>
   <article
-    class="relative rounded-lg border border-gray-700 bg-gray-900 p-5 outline-blue-400 transition-transform duration-200 ease-out focus-within:outline hover:scale-[1.03]"
+    class="relative rounded-lg border border-gray-700 bg-gray-900 p-5 outline-blue-400 transition-transform duration-200 ease-out focus-within:outline hover:scale-[1.03] [&:has(.btn:focus)]:outline-primary-400"
   >
     <a href={`/${slug}`} class="block outline-none">
       <span class="sr-only">Click to read post titled {title}</span>
