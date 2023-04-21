@@ -13,7 +13,7 @@ export interface Props {
   authors?: string[];
   publishDate?: Date;
   lastUpdated?: Date;
-  canonicalURL?: URL;
+  canonicalURL?: URL | null;
   tags?: string[];
   ogImage?: OGImage;
 }

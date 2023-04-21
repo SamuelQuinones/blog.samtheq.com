@@ -9,7 +9,7 @@ export interface Props {
   title: string;
   siteName: string;
   description: string;
-  canonicalURL?: URL | string;
+  canonicalURL?: URL | string | null;
   ogImage: OGImage;
 }
 
@@ -27,7 +27,7 @@ const ensureTrailingSlash = (url: string | URL) => url.toString().replace(/\/$/,
 <!-- Page Meta -->
 <title set:html={title} />
 <meta name="description" content={description} />
-<link rel="canonical" href={ensureTrailingSlash(canonicalURL)} />
+{canonicalURL && <link rel="canonical" href={ensureTrailingSlash(canonicalURL)} />}
 <!-- Open Graph -->
 <meta name="og:site_name" property="og:site_name" content={siteName} />
 <meta name="og:type" property="og:type" content="article" />
@@ -36,7 +36,7 @@ const ensureTrailingSlash = (url: string | URL) => url.toString().replace(/\/$/,
 <meta property="og:image" content={ogImage.src} />
 <meta property="og:image:alt" content={ogImage.alt} />
 <meta property="og:image:type" content={ogImage.type} />
-<meta property="og:url" content={ensureTrailingSlash(canonicalURL)} />
+{canonicalURL && <meta property="og:url" content={ensureTrailingSlash(canonicalURL)} />}
 <!-- Twitter -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@SamuelQuinones1" />
