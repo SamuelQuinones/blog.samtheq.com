@@ -26,15 +26,7 @@ const { Content, headings } = await render();
 console.log("TOC: ", slug, headings);
 ---
 
-<BaseLayout
-  title={title}
-  navTitle={title}
-  description={description}
-  authors={authors}
-  tags={tags}
-  publishDate={publishDate}
-  lastUpdated={lastUpdated}
->
+<BaseLayout {title} navTitle={title} {description} {authors} {tags} {publishDate} {lastUpdated}>
   <article id="stq-page-content" class="bs-container-md mb-8 mt-16 max-w-5xl grow scroll-mt-16">
     <section data-time-meta class="pb-5 text-sm text-gray-300 md:text-base">
       <p class="mb-2">

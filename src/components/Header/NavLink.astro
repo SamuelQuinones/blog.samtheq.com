@@ -11,6 +11,6 @@ const active = highlightNested
   : Astro.url.pathname === href || Astro.url.pathname === `${href}/`;
 ---
 
-<a href={href} class:list={["nav-link", { active }, className]} {...attrs}>
+<a {href} class:list={["nav-link", { active }, className]} {...attrs}>
   <slot />
 </a>
