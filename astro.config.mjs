@@ -19,7 +19,7 @@ export default defineConfig({
     gfm: true,
     rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y],
     shikiConfig: {
-      theme: "one-dark-pro",
+      theme: "dark-plus",
     },
   },
   integrations: [
@@ -31,4 +31,7 @@ export default defineConfig({
   ],
   output: "static", // wants to be serverless by default
   adapter: vercel(),
+  experimental: {
+    assets: true,
+  },
 });

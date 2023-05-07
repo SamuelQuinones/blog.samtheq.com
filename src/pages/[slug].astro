@@ -18,15 +18,31 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, publishDate, description, authors, tags, lastUpdated },
+  data: { title, publishDate, description, authors, tags, lastUpdated, cover, coverAlt },
   render,
   slug,
 } = Astro.props;
 const { Content, headings } = await render();
+const ogImage = cover
+  ? {
+      src: new URL(cover.src, Astro.site).toString(),
+      alt: coverAlt || "Blog post cover image",
+      type: cover.format,
+    }
+  : undefined;
 console.log("TOC: ", slug, headings);
 ---
 
-<BaseLayout {title} navTitle={title} {description} {authors} {tags} {publishDate} {lastUpdated}>
+<BaseLayout
+  {title}
+  navTitle={title}
+  {description}
+  {authors}
+  {tags}
+  {publishDate}
+  {lastUpdated}
+  {ogImage}
+>
   <article id="stq-page-content" class="bs-container-md mb-8 mt-16 max-w-5xl grow scroll-mt-16">
     <section data-time-meta class="pb-5 text-sm text-gray-300 md:text-base">
       <p class="mb-2">

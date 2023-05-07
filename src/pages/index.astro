@@ -27,7 +27,7 @@ const posts = await getCollection("blog", getShowablePosts);
     <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-8">
       {
         posts.length > 0 ? (
-          posts.sort(sortPosts).map((post) => <PostCard {...post.data} slug={post.slug} showTags />)
+          posts.sort(sortPosts).map(({ data, slug }) => <PostCard {...data} {slug} showTags />)
         ) : (
           <li class="text-xl md:text-center lg:text-2xl">
             <p class="mb-3">Huh, it looks like there are no posts available to read.</p>
