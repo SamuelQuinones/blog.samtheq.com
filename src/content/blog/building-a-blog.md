@@ -38,11 +38,11 @@ For the most part, this was actually pretty painless. Astro uses routing similar
 
 Even though astro is statically exported by default, with the right adapter it does support server side rendering which means you can do API routes too!. Astro's `getStaticPaths` is nearly identical to NextJS' `generateStaticPaths`. Astro also supports server side rendering, though it does require additional configuration. This means you can serve API routes if necesarry too!
 
-In terms of creating pages, `.astro` files are simlar to `.svelte` files. Like svelte files, astro files are broken up into three segments and this also is true of Astro components:
+In terms of creating pages or components, `.astro` files are simlar to `.svelte` files. Like svelte files, astro files are broken up into segments:
 
 ```astro
 ---
-// header / JS logic
+// header / Server JS logic
 import { thing } from "some-lib";
 const greeting = thing.createGreeting();
 ---
@@ -51,14 +51,22 @@ const greeting = thing.createGreeting();
 <html>
   <head></head>
   <body>
-    <div>{greeting}</div>
+    <div data-is-greeter>{greeting}</div>
   </body>
 </html>
+
+<script>
+  // DOM / client JS logic
+  const greeterDiv = document.querySelectorAll("[data-is-greeter]");
+  // Do something with this div
+</script>
 
 <style>
   /* page / component styles */
 </style>
 ```
+
+Script tags are used differently in astro then they are in svelte. In astro they are more akin to native DOM scripts. You can [learn more here](https://docs.astro.build/en/guides/client-side-scripts/).
 
 Some have said Astro is also like PHP which ... I think I'll just let this meme speak for itself:
 
@@ -66,12 +74,11 @@ Some have said Astro is also like PHP which ... I think I'll just let this meme 
 <img src="https://i.redd.it/5lv8igf480l91.jpg" alt="Alt text" width="500"/>
 </center>
 
-The only notable change is that when creating components with astro, extracting props has to be done differently - seeing as we arent using functions for components any more - and that looks like this:
+When creating about components specifically, extracting props has to be done in a unique way - seeing as we arent using functions for components any more - and that looks like this:
 
 ```astro
 ---
-import Button from "./Button.astro";
-import { format, formatISO } from "date-fns";
+// src/components/PostCard.astro
 import type { CollectionEntry } from "astro:content";
 
 export type Props = CollectionEntry<"blog">["data"] & {
@@ -79,6 +86,7 @@ export type Props = CollectionEntry<"blog">["data"] & {
   slug: string;
 };
 
+// `Astro` is a global and does not need to be imported
 const { title, publishDate, description, slug, showTags, tags } = Astro.props;
 ---
 ```
@@ -100,7 +108,6 @@ import Footer from "@components/Footer.astro";
 import NavBar from "@components/Header/NavBar"; // REACT COMPONENT
 import NavLink from "@components/Header/NavLink.astro";
 import SEO, { type OGImage } from "@components/SEO.astro";
-import { formatISO } from "date-fns";
 
 // rest of the BaseLayout TS logic ...
 ---
