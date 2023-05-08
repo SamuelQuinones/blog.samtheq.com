@@ -1,7 +1,7 @@
 ---
 title: "Building a blog using Astro"
 description: "Learn how and why I built this blog using astro and why the blog's codebase is now separate from the main site"
-publishDate: "2023-04-16T13:31:28.000-04:00"
+publishDate: "2023-05-06T21:21:22.000-04:00"
 authors:
   - https://samtheq.com
 tags:
@@ -70,14 +70,14 @@ The only notable change is that when creating components with astro, extracting 
 
 ```astro
 ---
-import type { BlogFrontmatter } from "src/content/_schemas";
 import Button from "./Button.astro";
 import { format, formatISO } from "date-fns";
+import type { CollectionEntry } from "astro:content";
 
-export interface Props extends BlogFrontmatter {
+export type Props = CollectionEntry<"blog">["data"] & {
   showTags?: boolean;
   slug: string;
-}
+};
 
 const { title, publishDate, description, slug, showTags, tags } = Astro.props;
 ---
@@ -142,29 +142,32 @@ I won't repeat everything the docs say here, so please be sure to [check them ou
 My blog posts go in the `src/content/blog` folder. Each post is a markdown file and each markdown file must have frontmatter that matches the defined zod schema:
 
 ```ts
-import { z, defineCollection } from "astro:content";
+import { defineCollection, z } from "astro:content";
 
-export const blogSchema = z.object({
-  title: z.string(),
-  tags: z.array(z.string().transform((val) => val.toLowerCase())),
-  description: z.string(),
-  publishDate: z
-    .string()
-    .or(z.date())
-    .transform((val) => new Date(val)),
-  lastUpdated: z
-    .string()
-    .or(z.date())
-    .transform((val) => new Date(val))
-    .optional(),
-  authors: z.array(z.string().url()).default(["https://samtheq.com/"]),
-  draft: z.boolean().optional(),
+const blogCollection = defineCollection({
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      tags: z.array(z.string().transform((val) => val.toLowerCase())),
+      description: z.string(),
+      cover: image().optional(),
+      coverAlt: z.string().optional(),
+      publishDate: z
+        .string()
+        .or(z.date())
+        .transform((val) => new Date(val)),
+      lastUpdated: z
+        .string()
+        .or(z.date())
+        .transform((val) => new Date(val))
+        .optional(),
+      authors: z.array(z.string().url()).default(["https://samtheq.com/"]),
+      draft: z.boolean().optional(),
+    }),
 });
 
-export type BlogFrontmatter = z.infer<typeof blogSchema>;
-
 export const collections = {
-  blog: defineCollection({ schema: blogSchema }),
+  blog: blogCollection,
 };
 ```
 
@@ -211,14 +214,30 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, publishDate, description, authors, tags, lastUpdated },
+  data: { title, publishDate, description, authors, tags, lastUpdated, cover, coverAlt },
   render,
   slug,
 } = Astro.props;
 const { Content } = await render();
+const ogImage = cover
+  ? {
+      src: new URL(cover.src, Astro.site).toString(),
+      alt: coverAlt || "Blog post cover image",
+      type: cover.format,
+    }
+  : undefined;
 ---
 
-<BaseLayout {title} {title} {description} {authors} {tags} {publishDate} {lastUpdated}>
+<BaseLayout
+  {title}
+  navTitle={title}
+  {description}
+  {authors}
+  {tags}
+  {publishDate}
+  {lastUpdated}
+  {ogImage}
+>
   <article id="stq-page-content" class="bs-container-md mb-8 mt-16 max-w-5xl grow scroll-mt-16">
     <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl">
       <h1 class="lg:!text-5xl">{title}</h1>
@@ -257,7 +276,7 @@ const posts = await getCollection("blog", getShowablePosts);
     <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-8">
       {
         posts.length > 0 ? (
-          posts.sort(sortPosts).map((post) => <PostCard {...post.data} slug={post.slug} showTags />)
+          posts.sort(sortPosts).map(({ data, slug }) => <PostCard {...data} {slug} showTags />)
         ) : (
           <li class="text-xl md:text-center lg:text-2xl">
             <p class="mb-3">Huh, it looks like there are no posts available to read.</p>
@@ -379,7 +398,7 @@ export default defineConfig({
     gfm: true,
     rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y],
     shikiConfig: {
-      theme: "one-dark-pro",
+      theme: "dark-plus",
     },
   },
   integrations: [
@@ -392,7 +411,6 @@ export default defineConfig({
   output: "static", // wants to be serverless by default
   adapter: vercel(),
 });
-
 ```
 
 The order of plugins in the array is important because it determines the order they will be applied. In this case, I want to be sure to auto create heading ID's before the links are auto applied.
@@ -403,7 +421,7 @@ This isn't Astro specific, but I use tailwindcss as my style framework and copy 
 
 Tailwind normally resets all the styles, so rather then create a set of styles for typography I use tailwind's [typography plugin](https://tailwindcss.com/docs/typography-plugin) to some of those styles back.
 
->The official Tailwind CSS Typography plugin provides a set of prose classes you can use to add beautiful typographic defaults to any vanilla HTML you don’t control, like HTML rendered from Markdown, or pulled from a CMS.
+> The official Tailwind CSS Typography plugin provides a set of prose classes you can use to add beautiful typographic defaults to any vanilla HTML you don’t control, like HTML rendered from Markdown, or pulled from a CMS.
 
 Basically, I wrap the HTML created from my collection files in a container with the `prose` class and the rest is like magic!
 
