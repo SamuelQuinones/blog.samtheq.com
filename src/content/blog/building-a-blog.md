@@ -8,7 +8,8 @@ tags:
   - astro
   - typescript
   - tailwind
-draft: true
+cover: "./_images/building-a-blog-cover.png"
+coverAlt: "Astro rays wallpaper combined with site logo"
 ---
 
 Originally, I built this blog in my main website's codebase using NextJS and a library called contentlayer. In fact if you look at the commit history, you can see that things were pretty much finished and all that was needed was to make the first post explaining how it was made.
