@@ -43,7 +43,9 @@ const updatedTitle = [title, siteName].join(" | ");
     <meta name="generator" content={Astro.generator} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#371b36" />
+    <meta name="color-scheme" content="dark" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" type="image/png" href="/apple-touch-icon.png" sizes="180x180" />
     <meta name="author" content="Samuel Quinones" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="robots" content="follow, index" />
@@ -51,7 +53,8 @@ const updatedTitle = [title, siteName].join(" | ");
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
 
-    <SEO title={updatedTitle} {siteName} {description} {canonicalURL} {ogImage} />
+    {/* need this to trick prettier */}
+    {() => <SEO title={updatedTitle} {siteName} {description} {canonicalURL} {ogImage} />}
 
     {authors && authors.map((author) => <meta property="article:author" content={author} />)}
     {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}

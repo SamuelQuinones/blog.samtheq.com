@@ -20,9 +20,8 @@ export async function getStaticPaths() {
 const {
   data: { title, publishDate, description, authors, tags, lastUpdated, cover, coverAlt },
   render,
-  slug,
 } = Astro.props;
-const { Content, headings } = await render();
+const { Content } = await render();
 const ogImage = cover
   ? {
       src: new URL(cover.src, Astro.site).toString(),
@@ -30,7 +29,6 @@ const ogImage = cover
       type: cover.format,
     }
   : undefined;
-console.log("TOC: ", slug, headings);
 ---
 
 <BaseLayout
