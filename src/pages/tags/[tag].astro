@@ -9,37 +9,32 @@ export const prerender = true;
 
 export type Props = {
   posts: CollectionEntry<"blog">[];
-  tag: string;
+  title: string;
   description?: string;
 };
-
-async function getPostsByTag(tag: string) {
-  const postsByTag = await getCollection("blog", (entry) => {
-    const showable = getShowablePosts(entry);
-    const containsTag = entry.data.tags.some(({ id }) => id === tag);
-    return showable && containsTag;
-  });
-  return postsByTag;
-}
 
 export async function getStaticPaths() {
   const allTags = await getCollection("tag");
 
   return await Promise.all(
-    allTags.map(async ({ data: { title, description } }) => ({
-      params: { tag: title },
+    allTags.map(async ({ data: { title, description }, id }) => ({
+      params: { tag: id },
       props: {
-        tag: title,
+        title,
         description,
-        posts: await getPostsByTag(title),
+        posts: await getCollection("blog", (entry) => {
+          const showable = getShowablePosts(entry);
+          const containsTag = entry.data.tags.some((entryTag) => entryTag.id === id);
+          return showable && containsTag;
+        }),
       },
     }))
   );
 }
 
-const { posts, tag, description } = Astro.props;
-const titleString = `${capitalizeFirstLetter(tag)} Tagged Posts`;
-const descriptionString = description ?? `All blog posts with the ${tag} tag`;
+const { posts, title, description } = Astro.props;
+const titleString = `${capitalizeFirstLetter(title)} Tagged Posts`;
+const descriptionString = description ?? `All blog posts with the ${title} tag`;
 ---
 
 <BaseLayout title={titleString} description={descriptionString}>
@@ -49,9 +44,9 @@ const descriptionString = description ?? `All blog posts with the ${tag} tag`;
   >
     <section data-post-heading class="mb-4 pt-5 text-center">
       <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-        {capitalizeFirstLetter(tag)}
+        {capitalizeFirstLetter(title)}
       </h1>
-      <p class="text-lg">Posts that contain the "{tag}" tag</p>
+      <p class="text-lg">{descriptionString}</p>
     </section>
     <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-16">
       {

@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, getEntries } from "astro:content";
 import { getShowablePosts } from "@util/BlogHelper";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
@@ -18,10 +18,9 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, publishDate, description, authors, tags, lastUpdated, cover, coverAlt },
+  data: { title, publishDate, description, authors, lastUpdated, cover, coverAlt, ...rest },
   render,
 } = Astro.props;
-const { Content } = await render();
 const ogImage = cover
   ? {
       src: new URL(cover.src, Astro.site).toString(),
@@ -29,7 +28,11 @@ const ogImage = cover
       type: cover.format,
     }
   : undefined;
-const tagStrings = tags.map(({ id }) => id);
+//? should these two be separated like this?
+const tagObjs = await getEntries(rest.tags);
+const tags = tagObjs.map(({ id }) => id);
+
+const { Content } = await render();
 ---
 
 <BaseLayout
@@ -37,7 +40,7 @@ const tagStrings = tags.map(({ id }) => id);
   navTitle={title}
   {description}
   {authors}
-  tags={tagStrings}
+  {tags}
   {publishDate}
   {lastUpdated}
   {ogImage}
@@ -55,7 +58,7 @@ const tagStrings = tags.map(({ id }) => id);
     </section>
     <section data-tag-list class="inline-flex flex-wrap gap-2 pb-5">
       {
-        tagStrings.map((val) => (
+        tags.map((val) => (
           <Button variant="info" href={`/tags/${val}`} class="px-2 py-1 leading-4">
             <span class="sr-only">Click or tap this tag to view other posts about</span>
             <strong> # {val}</strong>

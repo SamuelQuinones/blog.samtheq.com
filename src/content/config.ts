@@ -26,7 +26,7 @@ const blogCollection = defineCollection({
 const tagCollection = defineCollection({
   type: "data",
   schema: z.object({
-    title: z.string().transform((val) => val.toLowerCase()),
+    title: z.string(),
     description: z.string().optional(),
   }),
 });
