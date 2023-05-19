@@ -1,7 +1,7 @@
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getShowablePosts, getUniqueTags, sortPosts } from "@util/BlogHelper";
+import { getShowablePosts, sortPosts } from "@util/BlogHelper";
 import { capitalizeFirstLetter } from "@util/StringHelpers";
 import { type CollectionEntry, getCollection } from "astro:content";
 
@@ -10,26 +10,39 @@ export const prerender = true;
 export type Props = {
   posts: CollectionEntry<"blog">[];
   tag: string;
+  description?: string;
 };
 
-export async function getStaticPaths() {
-  const allPosts = await getCollection("blog", getShowablePosts);
-  const uniqueTags = getUniqueTags(allPosts);
-
-  return uniqueTags.map((tag) => ({
-    params: { tag },
-    props: {
-      tag,
-      posts: allPosts.filter((post) => post.data.tags.includes(tag)),
-    },
-  }));
+async function getPostsByTag(tag: string) {
+  const postsByTag = await getCollection("blog", (entry) => {
+    const showable = getShowablePosts(entry);
+    const containsTag = entry.data.tags.some(({ id }) => id === tag);
+    return showable && containsTag;
+  });
+  return postsByTag;
 }
 
-const { posts, tag } = Astro.props;
+export async function getStaticPaths() {
+  const allTags = await getCollection("tag");
+
+  return await Promise.all(
+    allTags.map(async ({ data: { title, description } }) => ({
+      params: { tag: title },
+      props: {
+        tag: title,
+        description,
+        posts: await getPostsByTag(title),
+      },
+    }))
+  );
+}
+
+const { posts, tag, description } = Astro.props;
 const titleString = `${capitalizeFirstLetter(tag)} Tagged Posts`;
+const descriptionString = description ?? `All blog posts with the ${tag} tag`;
 ---
 
-<BaseLayout title={titleString} description={`All blog posts with the ${tag} tag`}>
+<BaseLayout title={titleString} description={descriptionString}>
   <main
     id="stq-page-content"
     class="bs-container-md mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"

@@ -29,6 +29,7 @@ const ogImage = cover
       type: cover.format,
     }
   : undefined;
+const tagStrings = tags.map(({ id }) => id);
 ---
 
 <BaseLayout
@@ -36,7 +37,7 @@ const ogImage = cover
   navTitle={title}
   {description}
   {authors}
-  {tags}
+  tags={tagStrings}
   {publishDate}
   {lastUpdated}
   {ogImage}
@@ -54,7 +55,7 @@ const ogImage = cover
     </section>
     <section data-tag-list class="inline-flex flex-wrap gap-2 pb-5">
       {
-        tags.map((val) => (
+        tagStrings.map((val) => (
           <Button variant="info" href={`/tags/${val}`} class="px-2 py-1 leading-4">
             <span class="sr-only">Click or tap this tag to view other posts about</span>
             <strong> # {val}</strong>
