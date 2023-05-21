@@ -1,7 +1,7 @@
 ---
 title: "Building a blog using Astro"
 description: "Learn how and why I built this blog using astro and why the blog's codebase is now separate from the main site"
-publishDate: "2023-05-06T21:21:22.000-04:00"
+publishDate: "2023-05-20T22:19:15.000-04:00"
 authors:
   - https://samtheq.com
 tags:
@@ -150,13 +150,14 @@ I won't repeat everything the docs say here, so please be sure to [check them ou
 My blog posts go in the `src/content/blog` folder. Each post is a markdown file and each markdown file must have frontmatter that matches the defined zod schema:
 
 ```ts
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 
 const blogCollection = defineCollection({
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      tags: z.array(z.string().transform((val) => val.toLowerCase())),
+      tags: z.array(reference("tag")),
       description: z.string(),
       cover: image().optional(),
       coverAlt: z.string().optional(),
@@ -174,10 +175,23 @@ const blogCollection = defineCollection({
     }),
 });
 
+const tagCollection = defineCollection({
+  type: "data",
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
+  tag: tagCollection,
 };
 ```
+
+As of Astro 2.5, content collections can now reference eachother. This update also introduced "data" collections which are perfect for lists of authors and tags. Here I created a data collection for tags that are being referenced by the blog posts.
+
+This means that when creating a new blog post file, in order for the app to build all tags must match back to an existing tag json file.
 
 ```md
 ---
@@ -188,9 +202,8 @@ lastUpdated: "2023-03-14T22:13:22.000-04:00"
 authors:
   - "https://samtheq.com"
 tags:
-  - test
-  - react
-  - javascript
+  - typescript
+  - astro
 ---
 
 ## Post content
@@ -198,11 +211,20 @@ tags:
 blah blah
 ```
 
+```jsonc
+// src/content/tag/astro.json
+{
+  "title": "Astro",
+  "description": "Astro is the all-in-one web framework designed for speed."
+}
+
+```
+
 Then in my `src/pages/[slug].astro` file, I query the collection in a `getStaticPaths` function and return the results as props, this also ensures that there will be a route for every item in the collection:
 
 ```astro
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, getEntries } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export const prerender = true;
@@ -234,6 +256,7 @@ const ogImage = cover
       type: cover.format,
     }
   : undefined;
+const tags = rest.tags.map(({ id }) => id);
 ---
 
 <BaseLayout
@@ -261,13 +284,10 @@ I also use the collection query on the home page to generate the full list of po
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import { getShowablePosts } from "@util/BlogHelper";
+import { getCollection } from "astro:content";
 
 export const prerender = true;
-
-function getShowablePosts(entry: CollectionEntry<"blog">) {
-  return entry.data.draft !== true || import.meta.env.DEV;
-}
 
 function sortPosts(a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) {
   return b.data.publishDate.getTime() - a.data.publishDate.getTime();
@@ -297,51 +317,70 @@ const posts = await getCollection("blog", getShowablePosts);
 </BaseLayout>
 ```
 
-I also use similar logic on the `src/pages/tags/[tag].astro` file.
+I also use similar logic on the `src/pages/tags/index.astro` file to list all of the tags, again using the `getCollection` function but this time passing "tags" as the argument.
 
-Even though tags are not their own collection, we can still generate a list of tags page - `src/pages/tags/index.astro` - by using content collection queries:
+Similar to `src/pages/[slug].astro`, `src/pages/tags/[tag].astro` uses a `getStaticPaths` function and generates a page for each item in the the desired collection. The main difference is that `src/pages/tags/[tag].astro` lists posts that contain the tag in question. It is more like a filtered version of the home page.
 
 ```astro
 ---
-import Button from "@components/Button.astro";
+import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { getShowablePosts, sortPosts } from "@util/BlogHelper";
+import type { InferGetStaticParamsType } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export const prerender = true;
 
-function getShowablePosts(entry: CollectionEntry<"blog">) {
-  return entry.data.draft !== true || import.meta.env.DEV;
+export interface Props {
+  posts: CollectionEntry<"blog">[];
+  title: string;
+  description?: string;
 }
 
-function getUniqueTags(posts: CollectionEntry<"blog">[]) {
-  let tags: string[] = [];
+export async function getStaticPaths() {
+  const allTags = await getCollection("tag");
 
-  posts.forEach((post) => {
-    tags = [...tags, ...post.data.tags];
-  });
-  return [...new Set(tags)];
+  return await Promise.all(
+    allTags.map(async ({ data: { title, description }, id }) => ({
+      params: { tag: id },
+      props: {
+        title,
+        description,
+        posts: await getCollection("blog", (entry) => {
+          const showable = getShowablePosts(entry);
+          const containsTag = entry.data.tags.some((entryTag) => entryTag.id === id);
+          return showable && containsTag;
+        }),
+      },
+    }))
+  );
 }
 
-const allPosts = await getCollection("blog", getShowablePosts);
-const uniqueTags = getUniqueTags(allPosts);
+const { posts, title, description } = Astro.props;
+const { tag } = Astro.params as InferGetStaticParamsType<typeof getStaticPaths>;
+const titleString = `${title} Tagged Posts`;
+const descriptionString = description ?? `All blog posts with the ${title} (#${tag}) tag`;
 ---
 
-<BaseLayout title="Blog Tags" description="All Post Tags">
-  <main id="stq-page-content" class="bs-container-md mt-16 grow scroll-mt-16">
-    <section class="relative inline-flex flex-wrap gap-2">
-      {
-        uniqueTags.map((tag) => (
-          <Button href={`/tags/${tag}`} variant="tag" class:list={["tag", tag, "font-bold"]}>
-            {tag}
-          </Button>
-        ))
-      }
+<BaseLayout title={titleString} description={descriptionString}>
+  <main
+    id="stq-page-content"
+    class="bs-container-md mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
+  >
+    <section data-post-heading class="mb-4 pt-5 text-center">
+      <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+        {title}
+      </h1>
+      <p class="text-lg">{descriptionString}</p>
     </section>
+    <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-16">
+      <!-- Same as home page -->
+    </ul>
   </main>
 </BaseLayout>
 ```
 
-It's also worth noting that if your collection starts to grow large, `getStaticPaths` has [pagination support](https://docs.astro.build/en/core-concepts/routing/#pagination). I will probably look into this as this blog starts to grow.
+It is worth noting that if your collection starts to grow large, `getStaticPaths` has [pagination support](https://docs.astro.build/en/core-concepts/routing/#pagination). I will probably look into this as this blog starts to grow.
 
 ## Easy RSS & Sitemap Support
 
