@@ -14,6 +14,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://blog.samtheq.com",
+  scopedStyleStrategy: "class",
   server: ({ command }) => ({ port: command === "dev" ? 5665 : 6116 }),
   markdown: {
     gfm: true,
