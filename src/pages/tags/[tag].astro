@@ -2,16 +2,16 @@
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getShowablePosts, sortPosts } from "@util/BlogHelper";
-import { capitalizeFirstLetter } from "@util/StringHelpers";
+import type { InferGetStaticParamsType } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export const prerender = true;
 
-export type Props = {
+export interface Props {
   posts: CollectionEntry<"blog">[];
   title: string;
   description?: string;
-};
+}
 
 export async function getStaticPaths() {
   const allTags = await getCollection("tag");
@@ -33,8 +33,9 @@ export async function getStaticPaths() {
 }
 
 const { posts, title, description } = Astro.props;
-const titleString = `${capitalizeFirstLetter(title)} Tagged Posts`;
-const descriptionString = description ?? `All blog posts with the ${title} tag`;
+const { tag } = Astro.params as InferGetStaticParamsType<typeof getStaticPaths>;
+const titleString = `${title} Tagged Posts`;
+const descriptionString = description ?? `All blog posts with the ${title} (#${tag}) tag`;
 ---
 
 <BaseLayout title={titleString} description={descriptionString}>
@@ -44,7 +45,7 @@ const descriptionString = description ?? `All blog posts with the ${title} tag`;
   >
     <section data-post-heading class="mb-4 pt-5 text-center">
       <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-        {capitalizeFirstLetter(title)}
+        {title}
       </h1>
       <p class="text-lg">{descriptionString}</p>
     </section>
