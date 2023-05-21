@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection, getEntries } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import { getShowablePosts } from "@util/BlogHelper";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
@@ -28,9 +28,8 @@ const ogImage = cover
       type: cover.format,
     }
   : undefined;
-//? should these two be separated like this?
-const tagObjs = await getEntries(rest.tags);
-const tags = tagObjs.map(({ id }) => id);
+//? Should I use `getEntries`
+const tags = rest.tags.map(({ id }) => id);
 
 const { Content } = await render();
 ---

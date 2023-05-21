@@ -18,7 +18,7 @@ const blogCollection = defineCollection({
         .or(z.date())
         .transform((val) => new Date(val))
         .optional(),
-      authors: z.array(z.string().url()).default(["https://samtheq.com/"]),
+      authors: z.array(z.string().url()).default(["https://samtheq.com/about"]),
       draft: z.boolean().optional(),
     }),
 });
