@@ -50,7 +50,7 @@ const allTags = await getCollection("tag");
   }
 
   .tag.nextjs {
-    @apply border-black bg-black text-white hocus:border-stone-900 hocus:bg-stone-900;
+    @apply border-black bg-black hocus:border-stone-900 hocus:bg-stone-900;
   }
 
   .tag.javascript {
@@ -58,7 +58,7 @@ const allTags = await getCollection("tag");
   }
 
   .tag.typescript {
-    @apply border-blue-600 bg-blue-600 text-white hocus:border-blue-700 hocus:bg-blue-700;
+    @apply border-blue-600 bg-blue-600 hocus:border-blue-700 hocus:bg-blue-700;
   }
 
   .tag.css {
@@ -66,6 +66,9 @@ const allTags = await getCollection("tag");
   }
 
   .tag.svelte {
-    @apply border-orange-700 bg-orange-700 text-white hocus:border-orange-600 hocus:bg-orange-600;
+    @apply border-orange-700 bg-orange-700 hocus:border-orange-600 hocus:bg-orange-600;
+  }
+  .tag.tailwind {
+    @apply border-sky-500 bg-sky-500 hocus:border-sky-400 hocus:bg-sky-400;
   }
 </style>
