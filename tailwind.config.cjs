@@ -7,6 +7,10 @@ module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   safelist: ["sr-only"],
   theme: {
+    container: {
+      center: true,
+      padding: "0.75rem",
+    },
     extend: {
       colors: {
         // APPEND HERE

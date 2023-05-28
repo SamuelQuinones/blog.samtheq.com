@@ -269,7 +269,7 @@ const tags = rest.tags.map(({ id }) => id);
   {lastUpdated}
   {ogImage}
 >
-  <article id="stq-page-content" class="bs-container-md mb-8 mt-16 max-w-5xl grow scroll-mt-16">
+  <article id="stq-page-content" class="container mb-8 mt-16 max-w-5xl grow scroll-mt-16">
     <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl">
       <h1 class="lg:!text-5xl">{title}</h1>
       <Content />
@@ -299,7 +299,7 @@ const posts = await getCollection("blog", getShowablePosts);
 <BaseLayout title="Blog" description="Samuel Quinones' Personal Blog">
   <main
     id="stq-page-content"
-    class="bs-container-md mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
+    class="container mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
   >
     <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-8">
       {
@@ -365,7 +365,7 @@ const descriptionString = description ?? `All blog posts with the ${title} (#${t
 <BaseLayout title={titleString} description={descriptionString}>
   <main
     id="stq-page-content"
-    class="bs-container-md mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
+    class="container mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
   >
     <section data-post-heading class="mb-4 pt-5 text-center">
       <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
