@@ -72,7 +72,8 @@ export default function Navbar({ children, title }: NavbarProps) {
       onAnimationComplete={onAnimationComplete}
       transition={{ type: "tween", duration: 0.2 }}
     >
-      <nav className="bs-container-xl sm:flex sm:justify-between">
+      {/* min-[1200px]:max-w-[1140px] min-[1400px]:max-w-[1320px] */}
+      <nav className="container max-w-full sm:flex sm:justify-between xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <a href="#stq-page-content" data-nav-skip-link="true">
           Skip To Content
         </a>
