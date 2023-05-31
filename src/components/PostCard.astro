@@ -17,18 +17,7 @@ const { title, publishDate, description, slug, showTags, tags, cover, coverAlt }
     class="relative rounded-lg border border-gray-700 bg-gray-900 p-5 outline-blue-400 transition-transform duration-200 ease-out focus-within:outline hover:scale-[1.03] [&:has(.btn:focus)]:outline-primary-400"
   >
     <a href={`/${slug}`} class="block outline-none">
-      {
-        cover && (
-          <Image
-            src={cover.src}
-            alt={coverAlt || "Blog post cover image"}
-            height={cover.height}
-            width={cover.width}
-            format={cover.format}
-            class="my-8"
-          />
-        )
-      }
+      {cover && <Image src={cover} alt={coverAlt || "Blog post cover image"} class="my-8" />}
       <span class="sr-only">Click to read post titled {title}</span>
       <span class="absolute inset-0 rounded-lg"></span>
       <section class="font-mono text-gray-300">
