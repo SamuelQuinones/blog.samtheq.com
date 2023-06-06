@@ -6,6 +6,7 @@ import vercel from "@astrojs/vercel/static";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import linkify from "rehype-autolink-headings";
 import addA11y from "./plugins/a11y-navigation";
+import externalLinks from "./plugins/external-links";
 // Astro plugins
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
@@ -18,7 +19,7 @@ export default defineConfig({
   server: ({ command }) => ({ port: command === "dev" ? 5665 : 6116 }),
   markdown: {
     gfm: true,
-    rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y],
+    rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y, externalLinks],
     shikiConfig: {
       theme: "dark-plus",
     },
