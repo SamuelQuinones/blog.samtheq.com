@@ -71,7 +71,7 @@ Script tags are used differently in astro then they are in svelte. In astro they
 
 Some have said Astro is also like PHP which ... I think I'll just let this meme speak for itself:
 
-![Reddit Astro PHP Meme](https://i.redd.it/5lv8igf480l91.jpg)<!--rehype:width=500&align=center-->
+![Reddit Astro PHP Meme](https://i.redd.it/5lv8igf480l91.jpg)<!--rehype:width=500-->
 
 When creating about components specifically, extracting props has to be done in a unique way - seeing as we arent using functions for components any more - and that looks like this:
 
@@ -422,7 +422,11 @@ import vercel from "@astrojs/vercel/static";
 // Markdown plugins
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import linkify from "rehype-autolink-headings";
+import rehypeAttrs from "rehype-attr";
 import addA11y from "./plugins/a11y-navigation";
+import externalLinks from "./plugins/external-links";
+import removeAttrComments from "./plugins/remove-attr-comments";
+import unwrapImages from "./plugins/unwrap-images";
 // Astro plugins
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
@@ -431,10 +435,19 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://blog.samtheq.com",
+  scopedStyleStrategy: "class",
   server: ({ command }) => ({ port: command === "dev" ? 5665 : 6116 }),
   markdown: {
     gfm: true,
-    rehypePlugins: [rehypeHeadingIds, [linkify, { behavior: "wrap" }], addA11y],
+    rehypePlugins: [
+      [rehypeAttrs, { properties: "attr" }],
+      removeAttrComments,
+      rehypeHeadingIds,
+      [linkify, { behavior: "wrap" }],
+      addA11y,
+      externalLinks,
+      unwrapImages,
+    ],
     shikiConfig: {
       theme: "dark-plus",
     },
@@ -448,6 +461,9 @@ export default defineConfig({
   ],
   output: "static", // wants to be serverless by default
   adapter: vercel(),
+  experimental: {
+    assets: true,
+  },
 });
 ```
 
