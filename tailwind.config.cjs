@@ -33,6 +33,10 @@ module.exports = {
         },
         DEFAULT: {
           css: {
+            img: {
+              marginLeft: "auto",
+              marginRight: "auto",
+            },
             "sup > a[data-footnote-ref]": {
               scrollMarginTop: "4rem",
             },
