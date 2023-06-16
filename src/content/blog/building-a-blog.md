@@ -71,9 +71,7 @@ Script tags are used differently in astro then they are in svelte. In astro they
 
 Some have said Astro is also like PHP which ... I think I'll just let this meme speak for itself:
 
-<center>
-<img src="https://i.redd.it/5lv8igf480l91.jpg" alt="Alt text" width="500"/>
-</center>
+![Reddit Astro PHP Meme](https://i.redd.it/5lv8igf480l91.jpg)<!--rehype:width=500&align=center-->
 
 When creating about components specifically, extracting props has to be done in a unique way - seeing as we arent using functions for components any more - and that looks like this:
 
@@ -217,7 +215,6 @@ blah blah
   "title": "Astro",
   "description": "Astro is the all-in-one web framework designed for speed."
 }
-
 ```
 
 Then in my `src/pages/[slug].astro` file, I query the collection in a `getStaticPaths` function and return the results as props, this also ensures that there will be a route for every item in the collection:
@@ -297,10 +294,7 @@ const posts = await getCollection("blog", getShowablePosts);
 ---
 
 <BaseLayout title="Blog" description="Samuel Quinones' Personal Blog">
-  <main
-    id="stq-page-content"
-    class="container mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
-  >
+  <main id="stq-page-content" class="container mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28">
     <ul data-post-list data-post-count={posts.length} class="mt-8 space-y-8">
       {
         posts.length > 0 ? (
@@ -363,10 +357,7 @@ const descriptionString = description ?? `All blog posts with the ${title} (#${t
 ---
 
 <BaseLayout title={titleString} description={descriptionString}>
-  <main
-    id="stq-page-content"
-    class="container mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28"
-  >
+  <main id="stq-page-content" class="container mt-16 max-w-[52rem] grow scroll-mt-16 px-4 pb-28">
     <section data-post-heading class="mb-4 pt-5 text-center">
       <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
         {title}
