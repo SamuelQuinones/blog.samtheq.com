@@ -6,7 +6,6 @@ import vercel from "@astrojs/vercel/static";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import linkify from "rehype-autolink-headings";
 import rehypeAttrs from "rehype-attr";
-import addA11y from "./plugins/a11y-navigation";
 import externalLinks from "./plugins/external-links";
 import removeAttrComments from "./plugins/remove-attr-comments";
 import unwrapImages from "./plugins/unwrap-images";
@@ -27,7 +26,6 @@ export default defineConfig({
       removeAttrComments,
       rehypeHeadingIds,
       [linkify, { behavior: "wrap" }],
-      addA11y,
       externalLinks,
       unwrapImages,
     ],

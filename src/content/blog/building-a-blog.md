@@ -35,7 +35,7 @@ With all of this in mind, I got to work.
 
 ## Migrating to Astro
 
-For the most part, this was actually pretty painless. Astro uses routing similar to NextJS <= 13 without the app directory. All of the routes go in a `pages` folder so an about page would be `pages/about.astro` or `pages/about/index.astro`. Dynamic routes are also supported, like for this site the directory structure I use `pages/[slug].astro` and then pages based on what is called a content collection are rendered.
+For the most part, this was actually pretty painless. Astro uses routing similar to NextJS pages directory. All of the routes go in a `pages` folder so an about page would be `pages/about.astro` or `pages/about/index.astro`. Dynamic routes are also supported, like for this site the directory structure I use `pages/[slug].astro` and then pages based on what is called a content collection are rendered.
 
 Even though astro is statically exported by default, with the right adapter it does support server side rendering (albiet with some more configuration) which means you can do API routes too!. Astro's `getStaticPaths` is nearly identical to NextJS' `generateStaticPaths`.
 
