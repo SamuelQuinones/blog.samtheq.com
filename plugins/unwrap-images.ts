@@ -12,7 +12,7 @@ export default function unwrapImages(): Transformer<Root, Root> {
         node.children.every((n) => n.type === "element" && n.tagName === "img")
       ) {
         parent.children.splice(index, 1, ...node.children);
-        return SKIP;
+        return [SKIP, index + node.children.length];
       }
     });
   };

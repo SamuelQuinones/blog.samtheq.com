@@ -5,14 +5,14 @@ import vercel from "@astrojs/vercel/static";
 // Markdown plugins
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import linkify from "rehype-autolink-headings";
-import rehypeAttrs from "rehype-attr";
+import rehypeAttrs from "./plugins/rehype-attrs";
 import externalLinks from "./plugins/external-links";
-import removeAttrComments from "./plugins/remove-attr-comments";
 import unwrapImages from "./plugins/unwrap-images";
 // Astro plugins
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,8 +22,7 @@ export default defineConfig({
   markdown: {
     gfm: true,
     rehypePlugins: [
-      [rehypeAttrs, { properties: "attr" }],
-      removeAttrComments,
+      rehypeAttrs,
       rehypeHeadingIds,
       [linkify, { behavior: "wrap" }],
       externalLinks,
@@ -39,8 +38,10 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
+    mdx(),
   ],
-  output: "static", // wants to be serverless by default
+  output: "static",
+  // wants to be serverless by default
   adapter: vercel(),
   experimental: {
     assets: true,
