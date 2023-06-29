@@ -1,7 +1,7 @@
 import type { RehypePlugin } from "@astrojs/markdown-remark";
 import { visit } from "unist-util-visit";
 
-export default function externalLinks(): ReturnType<RehypePlugin> {
+export default function rehypeExternalLinks(): ReturnType<RehypePlugin> {
   return (tree) => {
     visit(tree, "element", (node) => {
       if (

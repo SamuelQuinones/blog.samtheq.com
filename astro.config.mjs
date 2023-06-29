@@ -6,8 +6,8 @@ import vercel from "@astrojs/vercel/static";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import linkify from "rehype-autolink-headings";
 import rehypeAttrs from "./plugins/rehype-attrs";
-import externalLinks from "./plugins/external-links";
-import unwrapImages from "./plugins/unwrap-images";
+import rehypeExternalLinks from "./plugins/rehype-external-links";
+import rehypeUnwrapImages from "./plugins/rehype-unwrap-images";
 // Astro plugins
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
@@ -25,8 +25,8 @@ export default defineConfig({
       rehypeAttrs,
       rehypeHeadingIds,
       [linkify, { behavior: "wrap" }],
-      externalLinks,
-      unwrapImages,
+      rehypeExternalLinks,
+      rehypeUnwrapImages,
     ],
     shikiConfig: {
       theme: "dark-plus",

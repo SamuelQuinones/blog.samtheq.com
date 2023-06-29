@@ -2,7 +2,7 @@ import type { Transformer } from "unified";
 import type { Root } from "hast";
 import { visit, SKIP } from "unist-util-visit";
 
-export default function unwrapImages(): Transformer<Root, Root> {
+export default function rehypeUnwrapImages(): Transformer<Root, Root> {
   return (tree) => {
     visit(tree, "element", (node, index, parent) => {
       if (
