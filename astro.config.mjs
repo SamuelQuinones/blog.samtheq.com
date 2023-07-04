@@ -40,8 +40,8 @@ export default defineConfig({
     sitemap(),
     mdx(),
   ],
-  output: "static",
   // wants to be serverless by default
+  output: "static",
   adapter: vercel(),
   experimental: {
     assets: true,
