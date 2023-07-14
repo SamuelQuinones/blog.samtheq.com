@@ -8,6 +8,6 @@
     "prettier-plugin-astro",
     "prettier-plugin-tailwindcss"
   ],
-  "pluginSearchDirs": false,
+  "tailwindFunctions": ["clsx"],
   "overrides": [{ "files": "*.astro", "options": { "parser": "astro" } }]
 }

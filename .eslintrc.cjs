@@ -1,32 +1,62 @@
 module.exports = {
   extends: [
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic",
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
     "plugin:prettier/recommended",
   ],
-  env: {
-    browser: true,
-    es2021: true,
-  },
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
+    extraFileExtensions: [".astro"], // unsure if this is needed as of v6
   },
   ignorePatterns: ["node_modules/*", "dist/*", "*.cjs", "!.prettierrc"],
   rules: {
     "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
-    "no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    // "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
     ],
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
+    "@typescript-eslint/triple-slash-reference": "off",
   },
   overrides: [
+    {
+      files: ["*.tsx", "*.ts"],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: "./tsconfig.json",
+      },
+      settings: {
+        react: {
+          version: "detect",
+        },
+      },
+      plugins: ["react-hooks"],
+      extends: [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked",
+      ],
+      rules: {
+        "@typescript-eslint/triple-slash-reference": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": [
+          "warn",
+          {
+            additionalHooks: "useIsomorphicLayoutEffect",
+          },
+        ],
+      },
+    },
     {
       // Define the configuration for `.astro` file.
       files: ["*.astro"],
@@ -40,38 +70,16 @@ module.exports = {
       },
     },
     {
-      files: ["*.tsx"],
-      settings: {
-        react: {
-          version: "detect",
-        },
-      },
-      plugins: ["react-hooks"],
-      parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: ["./tsconfig.json"],
-      },
-      extends: [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:@typescript-eslint/recommended",
-      ],
-      rules: {
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": [
-          "warn",
-          {
-            additionalHooks: "useIsomorphicLayoutEffect",
-          },
-        ],
-      },
-    },
-    {
       // Define the configuration for `<script>` tag.
       // Script in `<script>` is assigned a virtual file name with the `.js` extension.
       files: ["**/*.astro/*.js", "*.astro/*.js"],
-      parser: "@typescript-eslint/parser",
+      env: {
+        browser: true,
+        es2020: true,
+      },
+      parserOptions: {
+        sourceType: "module",
+      },
       rules: {
         "prettier/prettier": "off",
       },
