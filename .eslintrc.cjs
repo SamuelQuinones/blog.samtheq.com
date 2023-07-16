@@ -16,15 +16,14 @@ module.exports = {
   rules: {
     "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
     "@typescript-eslint/no-explicit-any": "off",
-    // "no-unused-vars": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
     ],
-    "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
-    "@typescript-eslint/triple-slash-reference": "off",
   },
   overrides: [
     {
@@ -40,7 +39,6 @@ module.exports = {
       },
       plugins: ["react-hooks"],
       extends: [
-        "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:@typescript-eslint/recommended-type-checked",
