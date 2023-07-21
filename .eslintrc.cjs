@@ -18,7 +18,6 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
     "@typescript-eslint/no-unused-vars": [
       "warn",
