@@ -45,6 +45,15 @@ module.exports = {
       ],
       rules: {
         "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/ban-ts-comment": [
+          "error",
+          {
+            "ts-ignore": "allow-with-description",
+            "ts-expect-error": "allow-with-description",
+            minimumDescriptionLength: 10,
+          },
+        ],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": [
           "warn",

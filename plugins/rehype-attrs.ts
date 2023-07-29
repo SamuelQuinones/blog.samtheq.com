@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // TODO: Keep watch for other elements Astro replaces in MDX
 
 import type { RehypePlugin } from "@astrojs/markdown-remark";

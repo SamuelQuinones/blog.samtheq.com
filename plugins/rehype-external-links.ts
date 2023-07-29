@@ -9,8 +9,7 @@ export default function rehypeExternalLinks(): ReturnType<RehypePlugin> {
         node.properties &&
         node.properties.href &&
         typeof node.properties.href === "string" &&
-        (node.properties.href.slice(0, 8) === "https://" ||
-          node.properties.href.slice(0, 7) === "http://")
+        (node.properties.href.startsWith("https://") || node.properties.href.startsWith("http://"))
       ) {
         node.properties = {
           ...node.properties,
