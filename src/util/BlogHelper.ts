@@ -14,6 +14,6 @@ export function sortPosts(a: CollectionEntry<"blog">, b: CollectionEntry<"blog">
  * @param entry Item in Blog collection
  * @returns boolean representing if the post should show or not
  */
-export function getShowablePosts(entry: CollectionEntry<"blog">) {
+export function getPublicPosts(entry: CollectionEntry<"blog">) {
   return entry.data.draft !== true || import.meta.env.DEV;
 }

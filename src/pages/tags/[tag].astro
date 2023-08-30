@@ -1,7 +1,7 @@
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getShowablePosts, sortPosts } from "@util/BlogHelper";
+import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 import type { InferGetStaticParamsType } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
         title,
         description,
         posts: await getCollection("blog", (entry) => {
-          const showable = getShowablePosts(entry);
+          const showable = getPublicPosts(entry);
           const containsTag = entry.data.tags.some((entryTag) => entryTag.id === id);
           return showable && containsTag;
         }),

@@ -1,12 +1,12 @@
 import type { APIContext } from "astro";
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { getShowablePosts, sortPosts } from "@util/BlogHelper";
+import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 
 export const prerender = true;
 
 export async function get(context: APIContext) {
-  const unsortedPosts = await getCollection("blog", getShowablePosts);
+  const unsortedPosts = await getCollection("blog", getPublicPosts);
   const posts = unsortedPosts.sort(sortPosts);
   return rss({
     title: "SamTheQ | Blog",
