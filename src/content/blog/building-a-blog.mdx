@@ -1,7 +1,7 @@
 ---
 title: "Building a blog using Astro"
 description: "Learn how and why I built this blog using astro and why the blog's codebase is now separate from the main site"
-publishDate: "2023-05-20T22:19:15.000-04:00"
+publishDate: "2023-08-30T16:35:16.000-04:00"
 authors:
   - https://samtheq.com
 tags:
@@ -195,8 +195,8 @@ This means that when creating a new blog post file, in order for the app to buil
 ---
 title: "Test Blog Post"
 description: "Test post description"
-publishDate: "2023-02-06T16:15:30.726Z"
-lastUpdated: "2023-03-14T22:13:22.000-04:00"
+publishDate: "2023-08-20T14:30:05.000-04:00"
+lastUpdated: "2023-08-30T16:37:11.000-04:00"
 authors:
   - "https://samtheq.com"
 tags:
@@ -228,12 +228,12 @@ export const prerender = true;
 
 export type Props = CollectionEntry<"blog">;
 
-function getShowablePosts(entry: CollectionEntry<"blog">) {
+function getPublicPosts(entry: CollectionEntry<"blog">) {
   return entry.data.draft !== true || import.meta.env.DEV;
 }
 
 export async function getStaticPaths() {
-  const blog = await getCollection("blog", getShowablePosts);
+  const blog = await getCollection("blog", getPublicPosts);
   return blog.map((post) => ({
     params: { slug: post.slug },
     props: post,
@@ -281,7 +281,7 @@ I also use the collection query on the home page to generate the full list of po
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getShowablePosts } from "@util/BlogHelper";
+import { getPublicPosts } from "@util/BlogHelper";
 import { getCollection } from "astro:content";
 
 export const prerender = true;
@@ -290,7 +290,7 @@ function sortPosts(a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) {
   return b.data.publishDate.getTime() - a.data.publishDate.getTime();
 }
 
-const posts = await getCollection("blog", getShowablePosts);
+const posts = await getCollection("blog", getPublicPosts);
 ---
 
 <BaseLayout title="Blog" description="Samuel Quinones' Personal Blog">
@@ -319,7 +319,7 @@ Similar to `src/pages/[slug].astro`, `src/pages/tags/[tag].astro` uses a `getSta
 ---
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getShowablePosts, sortPosts } from "@util/BlogHelper";
+import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 import type { InferGetStaticParamsType } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
@@ -341,7 +341,7 @@ export async function getStaticPaths() {
         title,
         description,
         posts: await getCollection("blog", (entry) => {
-          const showable = getShowablePosts(entry);
+          const showable = getPublicPosts(entry);
           const containsTag = entry.data.tags.some((entryTag) => entryTag.id === id);
           return showable && containsTag;
         }),
@@ -386,15 +386,12 @@ I make use of both of these, the sitemap plugin just needs to be added to your `
 import type { APIContext } from "astro";
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import sanitizeHtml from "sanitize-html";
-import MarkdownIt from "markdown-it";
-import { getShowablePosts, sortPosts } from "@util/BlogHelper";
-const parser = new MarkdownIt();
+import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 
 export const prerender = true;
 
 export async function get(context: APIContext) {
-  const unsortedPosts = await getCollection("blog", getShowablePosts);
+  const unsortedPosts = await getCollection("blog", getPublicPosts);
   const posts = unsortedPosts.sort(sortPosts);
   return rss({
     title: "SamTheQ | Blog",
@@ -405,7 +402,6 @@ export async function get(context: APIContext) {
       pubDate: post.data.publishDate,
       description: post.data.description,
       link: `/${post.slug}/`,
-      content: sanitizeHtml(parser.render(post.body)),
     })),
     customData: `<language>en-us</language>`,
   });
@@ -423,8 +419,8 @@ import vercel from "@astrojs/vercel/static";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import linkify from "rehype-autolink-headings";
 import rehypeAttrs from "./plugins/rehype-attrs";
-import externalLinks from "./plugins/external-links";
-import unwrapImages from "./plugins/unwrap-images";
+import rehypeExternalLinks from "./plugins/rehype-external-links";
+import rehypeUnwrapImages from "./plugins/rehype-unwrap-images";
 // Astro plugins
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
@@ -442,8 +438,8 @@ export default defineConfig({
       rehypeAttrs,
       rehypeHeadingIds,
       [linkify, { behavior: "wrap" }],
-      externalLinks,
-      unwrapImages,
+      rehypeExternalLinks,
+      rehypeUnwrapImages,
     ],
     shikiConfig: {
       theme: "dark-plus",
@@ -459,10 +455,8 @@ export default defineConfig({
   ],
   output: "static", // wants to be serverless by default
   adapter: vercel(),
-  experimental: {
-    assets: true,
-  },
 });
+
 ```
 
 The order of plugins in the array is important because it determines the order they will be applied. In this case, I want to be sure to auto create heading ID's before the links are auto applied.

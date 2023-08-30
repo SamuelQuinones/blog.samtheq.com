@@ -1,13 +1,10 @@
 ---
-import type { AstroBuiltinAttributes } from "astro";
-
 export interface Props {
   outline?: boolean;
   variant?: string;
   disabled?: boolean;
   shape?: "pill" | "square" | "default";
   class?: string;
-  "class:list"?: AstroBuiltinAttributes["class:list"];
   type?: "button" | "submit" | "reset";
   [x: string]: any;
 }
@@ -18,7 +15,6 @@ const {
   disabled,
   shape,
   class: className,
-  "class:list": classList,
   type,
   href,
   ...props
@@ -52,7 +48,6 @@ const extraProps = {
     shape === "pill" && "rounded-full",
     shape === "square" && "rounded-none",
     className,
-    classList,
   ]}
 >
   <slot />

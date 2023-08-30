@@ -43,7 +43,4 @@ export default defineConfig({
   // wants to be serverless by default
   output: "static",
   adapter: vercel(),
-  experimental: {
-    assets: true,
-  },
 });
