@@ -23,6 +23,14 @@ module.exports = {
       "warn",
       { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
     ],
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-ignore": "allow-with-description",
+        "ts-expect-error": "allow-with-description",
+        minimumDescriptionLength: 10,
+      },
+    ],
   },
   overrides: [
     {
@@ -49,14 +57,6 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": [
           "warn",
           { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
-        ],
-        "@typescript-eslint/ban-ts-comment": [
-          "error",
-          {
-            "ts-ignore": "allow-with-description",
-            "ts-expect-error": "allow-with-description",
-            minimumDescriptionLength: 10,
-          },
         ],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": [
