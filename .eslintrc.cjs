@@ -1,7 +1,7 @@
 module.exports = {
   extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/stylistic",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
     "plugin:prettier/recommended",
@@ -10,15 +10,23 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    extraFileExtensions: [".astro"], // unsure if this is needed as of v6
+    project: true,
+  },
+  env: {
+    node: true,
+    browser: true,
   },
   ignorePatterns: ["node_modules/*", "dist/*", "*.cjs", "!.prettierrc"],
   rules: {
     "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/restrict-plus-operands": "warn",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
+    "@typescript-eslint/unbound-method": ["warn", { ignoreStatic: true }],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
@@ -35,29 +43,14 @@ module.exports = {
   overrides: [
     {
       files: ["*.tsx", "*.ts"],
-      parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: "./tsconfig.json",
-      },
       settings: {
         react: {
           version: "detect",
         },
       },
       plugins: ["react-hooks"],
-      extends: [
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:@typescript-eslint/recommended-type-checked",
-        "plugin:@typescript-eslint/stylistic-type-checked",
-      ],
+      extends: ["plugin:react/recommended", "plugin:react/jsx-runtime"],
       rules: {
-        "@typescript-eslint/triple-slash-reference": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-unused-vars": [
-          "warn",
-          { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
-        ],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": [
           "warn",

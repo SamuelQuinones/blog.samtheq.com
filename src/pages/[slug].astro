@@ -19,12 +19,13 @@ export async function getStaticPaths() {
 
 const {
   data: { title, publishDate, description, authors, lastUpdated, cover, coverAlt, ...rest },
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   render,
 } = Astro.props;
 const ogImage = cover
   ? {
       src: new URL(cover.src, Astro.site).toString(),
-      alt: coverAlt || "Blog post cover image",
+      alt: coverAlt ?? "Blog post cover image",
       type: cover.format,
     }
   : undefined;

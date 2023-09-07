@@ -56,8 +56,8 @@ const updatedTitle = [title, siteName].join(" | ");
     {/* need this to trick prettier */}
     {() => <SEO title={updatedTitle} {siteName} {description} {canonicalURL} {ogImage} />}
 
-    {authors && authors.map((author) => <meta property="article:author" content={author} />)}
-    {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    {authors?.map((author) => <meta property="article:author" content={author} />)}
+    {tags?.map((tag) => <meta property="article:tag" content={tag} />)}
     {publishDate && <meta property="article:published_time" content={formatISO(publishDate)} />}
     {lastUpdated && <meta property="article:modified_time" content={formatISO(lastUpdated)} />}
   </head>
