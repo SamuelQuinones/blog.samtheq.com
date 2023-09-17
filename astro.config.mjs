@@ -14,9 +14,16 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 
+const VERCEL_PREVIEW_SITE =
+  process.env.VERCEL_ENV !== "production" &&
+  process.env.VERCEL_URL &&
+  `https://${process.env.VERCEL_URL}`;
+
+console.log("[VERCEL_PREVIEW_SITE]", VERCEL_PREVIEW_SITE);
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://blog.samtheq.com",
+  site: VERCEL_PREVIEW_SITE || "https://blog.samtheq.com",
   scopedStyleStrategy: "class",
   server: ({ command }) => ({ port: command === "dev" ? 5665 : 6116 }),
   markdown: {
@@ -42,5 +49,12 @@ export default defineConfig({
   ],
   // wants to be serverless by default
   output: "static",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+    speedInsights: {
+      enabled: true,
+    },
+  }),
 });

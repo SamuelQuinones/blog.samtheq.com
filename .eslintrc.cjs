@@ -19,6 +19,10 @@ module.exports = {
   ignorePatterns: ["node_modules/*", "dist/*", "*.cjs", "!.prettierrc"],
   rules: {
     "prettier/prettier": ["warn", {}, { usePrettierrc: true }],
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "warn",
+      { ignorePrimitives: { boolean: true} },
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/restrict-template-expressions": "warn",
