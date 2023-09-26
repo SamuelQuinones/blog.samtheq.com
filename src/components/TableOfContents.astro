@@ -1,0 +1,38 @@
+---
+import type { MarkdownHeading } from "astro";
+export interface Props {
+  toc: MarkdownHeading[];
+  depth: number;
+  class?: string;
+}
+
+const { toc, depth, class: className } = Astro.props;
+const headings = toc.filter((item) => item.depth === depth);
+---
+
+<ul class:list={["my-2.5", className]}>
+  {
+    headings.map((head, idx) => {
+      const nextHeading = headings[idx + 1];
+      const subHeadings = toc.slice(
+        toc.indexOf(head) + 1,
+        nextHeading ? toc.indexOf(nextHeading) : undefined
+      );
+      const hasSubHeadings = subHeadings.length > 0;
+
+      return (
+        <li class="mt-2.5 first:mt-0">
+          <a
+            href={`#${head.slug}`}
+            class="text-white underline underline-offset-2 hocus:text-gray-300"
+          >
+            {head.text}
+          </a>
+          {hasSubHeadings ? (
+            <Astro.self toc={subHeadings} depth={head.depth + 1} class:list={["pl-8", className]} />
+          ) : null}
+        </li>
+      );
+    })
+  }
+</ul>

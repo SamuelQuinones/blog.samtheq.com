@@ -4,6 +4,7 @@ import { getPublicPosts } from "@util/BlogHelper";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
 import { format } from "date-fns";
+import TableOfContents from "@components/TableOfContents.astro";
 
 export const prerender = true;
 
@@ -32,7 +33,7 @@ const ogImage = cover
 //? Should I use `getEntries`
 const tags = rest.tags.map(({ id }) => id);
 
-const { Content } = await render();
+const { Content, headings } = await render();
 ---
 
 <BaseLayout
@@ -66,9 +67,26 @@ const { Content } = await render();
         ))
       }
     </section>
-    <section data-post-body class="prose prose-invert max-w-none grow lg:prose-xl">
+    <!-- used to have class of grow, that doesnt do anything if parent is display: block -->
+    <section
+      data-post-body
+      class="prose prose-invert max-w-none lg:prose-xl hocus:prose-a:text-gray-300"
+    >
       <h1 class="lg:!text-5xl">{title}</h1>
+      <details class="not-prose text-base/normal" role="navigation" aria-label="Table of Contents">
+        <summary
+          class="btn btn-primary toc-toggle list-item w-fit select-none rounded-none font-semibold"
+          >Table of Contents</summary
+        >
+        <TableOfContents toc={headings} depth={2} />
+      </details>
       <Content />
     </section>
   </article>
 </BaseLayout>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
