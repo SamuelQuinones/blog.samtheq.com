@@ -1,10 +1,11 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, getEntries } from "astro:content";
 import { getPublicPosts } from "@util/BlogHelper";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
 import { format } from "date-fns";
 import TableOfContents from "@components/TableOfContents.astro";
+import Author from "@components/Author.astro";
 
 export const prerender = true;
 
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, publishDate, description, authors, lastUpdated, cover, coverAlt, ...rest },
+  data: { title, publishDate, description, lastUpdated, cover, coverAlt, ...rest },
   // eslint-disable-next-line @typescript-eslint/unbound-method
   render,
 } = Astro.props;
@@ -30,8 +31,9 @@ const ogImage = cover
       type: cover.format,
     }
   : undefined;
-//? Should I use `getEntries`
+
 const tags = rest.tags.map(({ id }) => id);
+const authors = (await getEntries(rest.authors)).map(({ data }) => data);
 
 const { Content, headings } = await render();
 ---
@@ -40,7 +42,7 @@ const { Content, headings } = await render();
   {title}
   navTitle={title}
   {description}
-  {authors}
+  authors={authors.map(({ website }) => website)}
   {tags}
   {publishDate}
   {lastUpdated}
@@ -72,7 +74,12 @@ const { Content, headings } = await render();
       data-post-body
       class="prose prose-invert max-w-none lg:prose-xl hocus:prose-a:text-gray-300"
     >
-      <h1 class="lg:!text-5xl">{title}</h1>
+      <h1 class="!mb-5 lg:!text-5xl">{title}</h1>
+      <div
+        class="not-prose mb-6 inline-flex flex-wrap items-center gap-3 text-base/normal text-white"
+      >
+        By: {authors.map(({ name, avatar }) => <Author {name} {avatar} />)}
+      </div>
       <details class="not-prose text-base/normal" role="navigation" aria-label="Table of Contents">
         <summary
           class="btn btn-primary toc-toggle list-item w-fit select-none rounded-none font-semibold"
