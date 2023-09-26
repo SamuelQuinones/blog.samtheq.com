@@ -18,7 +18,7 @@ const blogCollection = defineCollection({
         .or(z.date())
         .transform((val) => new Date(val))
         .optional(),
-      authors: z.array(z.string().url()).default(["https://samtheq.com/about"]),
+      authors: z.array(reference("author")).default(["samq"]),
       draft: z.boolean().optional(),
     }),
 });
@@ -31,7 +31,21 @@ const tagCollection = defineCollection({
   }),
 });
 
+const authorCollection = defineCollection({
+  type: "data",
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      website: z.string().url(),
+      avatar: image()
+        .refine((img) => img.width === img.height, { message: "image must be square" })
+        .optional(),
+      twitter: z.string().url().optional(),
+    }),
+});
+
 export const collections = {
   blog: blogCollection,
   tag: tagCollection,
+  author: authorCollection,
 };
