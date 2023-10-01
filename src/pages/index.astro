@@ -4,8 +4,6 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 import { getCollection } from "astro:content";
 
-export const prerender = true;
-
 const posts = await getCollection("blog", getPublicPosts);
 ---
 

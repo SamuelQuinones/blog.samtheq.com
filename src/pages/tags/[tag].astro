@@ -5,8 +5,6 @@ import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 import type { InferGetStaticParamsType } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
-export const prerender = true;
-
 export interface Props {
   posts: CollectionEntry<"blog">[];
   title: string;

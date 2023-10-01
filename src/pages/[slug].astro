@@ -7,8 +7,6 @@ import { format } from "date-fns";
 import TableOfContents from "@components/TableOfContents.astro";
 import Author from "@components/Author.astro";
 
-export const prerender = true;
-
 export type Props = CollectionEntry<"blog">;
 
 export async function getStaticPaths() {

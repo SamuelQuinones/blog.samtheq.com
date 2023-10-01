@@ -3,8 +3,6 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 
-export const prerender = true;
-
 export async function GET(context: APIContext) {
   const unsortedPosts = await getCollection("blog", getPublicPosts);
   const posts = unsortedPosts.sort(sortPosts);
