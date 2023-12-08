@@ -17,6 +17,7 @@ const {
   class: className,
   type,
   href,
+  role = "button",
   ...props
 } = Astro.props;
 
@@ -25,14 +26,7 @@ const Component = href ? "a" : "button";
 const extraProps = {
   "aria-disabled": Component === "a" ? (!disabled ? undefined : disabled) : undefined,
   disabled: Component === "a" ? undefined : disabled,
-  tabindex:
-    Component === "a"
-      ? disabled
-        ? undefined
-        : props.tabindex != undefined
-        ? (props.tabindex as number)
-        : 0
-      : (props.tabindex as number),
+  tabindex: Component === "a" ? (disabled ? -1 : props.tabindex) : props.tabindex,
 };
 ---
 
@@ -41,6 +35,7 @@ const extraProps = {
   {...extraProps}
   {href}
   {type}
+  {role}
   class:list={[
     "btn",
     { [`btn-${variant}`]: !outline, [`btn-outline-${variant}`]: outline },
