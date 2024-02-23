@@ -2,7 +2,6 @@
 title: "Building a blog using Astro"
 description: "Learn how and why I built this blog using astro and why the blog's codebase is now separate from the main site"
 publishDate: "2023-09-15T16:10:15.000-04:00"
-lastUpdated: "2023-09-30T21:36:30.000-04:00"
 authors:
   - samq
 tags:
@@ -72,7 +71,7 @@ Script tags are used differently in astro then they are in svelte. In astro they
 
 Some have said Astro is also like PHP which ... I think I'll just let this meme speak for itself:
 
-![Reddit Astro PHP Meme](https://i.redd.it/5lv8igf480l91.jpg){/*attrs:width=600*/}
+![Reddit Astro PHP Meme](https://i.redd.it/5lv8igf480l91.jpg){/* attrs:width=600 */}
 
 When creating about components specifically, extracting props has to be done in a unique way - seeing as we arent using functions for components any more - and that looks like this:
 
@@ -101,18 +100,19 @@ Astro will render your other framework's HTML on the server and then ship the ja
 
 Currently, I am only using react because I want to take advantage of framer-motion. My Navbar is made with react so it exists in its own `src/components/Header/NavBar.tsx` file. And I import it into my global layout astro file:
 
-```astro
+```astro {"This is a react component:":4-5} /client:media=".*"/
 ---
 import "../styles/globals.css";
 import Footer from "@components/Footer.astro";
-import NavBar from "@components/Header/NavBar"; // REACT COMPONENT
+
+import NavBar from "@components/Header/NavBar";
 import NavLink from "@components/Header/NavLink.astro";
 import SEO, { type OGImage } from "@components/SEO.astro";
 
 // rest of the BaseLayout TS logic ...
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Meta data and what not -->
@@ -148,7 +148,7 @@ I won't repeat everything the docs say here, so please be sure to [check them ou
 
 My blog posts go in the `src/content/blog` folder. Each post is a markdown file and each markdown file must have frontmatter that matches the defined zod schema:
 
-```ts
+```ts title="src/content/config.ts" {8,26,36}
 import { defineCollection, reference, z } from "astro:content";
 
 const blogCollection = defineCollection({
@@ -192,7 +192,7 @@ As of Astro 2.5, content collections can now reference eachother. This update al
 
 This means that when creating a new blog post file, in order for the app to build all tags must match back to an existing tag json file.
 
-```md
+```md title="src/content/blog/[some_post].mdx" {"Note how this tag matches the json file name:":10-11}
 ---
 title: "Test Blog Post"
 description: "Test post description"
@@ -202,6 +202,7 @@ authors:
   - "https://samtheq.com"
 tags:
   - typescript
+
   - astro
 ---
 
@@ -214,14 +215,15 @@ blah blah
 // src/content/tag/astro.json
 {
   "title": "Astro",
-  "description": "Astro is the all-in-one web framework designed for speed."
+  "description": "Astro is the all-in-one web framework designed for speed.",
 }
 ```
 
 Then in my `src/pages/[slug].astro` file, I query the collection in a `getStaticPaths` function and return the results as props, this also ensures that there will be a route for every item in the collection:
 
-```astro
+```astro {12-18} "getCollection"
 ---
+// src/pages/[slug].astro
 import { type CollectionEntry, getCollection, getEntries } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -278,6 +280,7 @@ I also use the collection query on the home page to generate the full list of po
 
 ```astro
 ---
+// src/pages/index.astro
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getPublicPosts } from "@util/BlogHelper";
@@ -314,6 +317,7 @@ Similar to `src/pages/[slug].astro`, `src/pages/tags/[tag].astro` uses a `getSta
 
 ```astro
 ---
+// src/pages/tags/[tag].astro
 import PostCard from "@components/PostCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getPublicPosts, sortPosts } from "@util/BlogHelper";
@@ -449,7 +453,6 @@ export default defineConfig({
   output: "static", // wants to be serverless by default
   adapter: vercel(),
 });
-
 ```
 
 The order of plugins in the array is important because it determines the order they will be applied. In this case, I want to be sure to auto create heading ID's before the links are auto applied.

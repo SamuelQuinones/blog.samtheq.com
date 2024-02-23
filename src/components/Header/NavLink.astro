@@ -2,13 +2,23 @@
 import type { HTMLAttributes } from "astro/types";
 
 export interface Props extends HTMLAttributes<"a"> {
+  href: string;
   highlightNested?: boolean;
 }
 const { href, class: className, highlightNested = false, ...attrs } = Astro.props;
 
+function isActiveNested(href: string, pathname: string) {
+  const splitHref = href.split("/");
+  const splitPathname = pathname.split("/");
+  for (let i = 0; i < splitHref.length; i++) {
+    if (splitHref[i] !== splitPathname[i]) return false;
+  }
+  return true;
+}
+
 const active = highlightNested
-  ? `/${Astro.url.pathname.split("/")[1]}` === href?.toString()
-  : Astro.url.pathname === href?.toString() || Astro.url.pathname === `${href?.toString()}/`;
+  ? isActiveNested(href, Astro.url.pathname)
+  : Astro.url.pathname === href;
 ---
 
 <a {href} class:list={["nav-link", { active }, className]} {...attrs}>

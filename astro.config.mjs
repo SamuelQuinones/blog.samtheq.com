@@ -8,11 +8,13 @@ import linkify from "rehype-autolink-headings";
 import rehypeAttrs from "./plugins/rehype-attrs";
 import rehypeExternalLinks from "./plugins/rehype-external-links";
 import rehypeUnwrapImages from "./plugins/rehype-unwrap-images";
+import remarkModifiedTime from "./plugins/remark-modified-time";
 // Astro plugins
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
+import expressiveCode from "astro-expressive-code";
 
 const VERCEL_PREVIEW_SITE =
   process.env.VERCEL_ENV !== "production" &&
@@ -28,6 +30,7 @@ export default defineConfig({
   server: ({ command }) => ({ port: command === "dev" ? 5665 : 6116 }),
   markdown: {
     gfm: true,
+    remarkPlugins: [remarkModifiedTime],
     rehypePlugins: [
       rehypeAttrs,
       rehypeHeadingIds,
@@ -35,25 +38,30 @@ export default defineConfig({
       rehypeExternalLinks,
       rehypeUnwrapImages,
     ],
-    shikiConfig: {
-      theme: "dark-plus",
-    },
   },
   integrations: [
     tailwind({
       applyBaseStyles: false,
     }),
     react(),
-    sitemap(),
+    expressiveCode({
+      themes: ["dark-plus"],
+      // frames: false,
+      styleOverrides: {
+        uiFontFamily: "Inter var",
+        codeFontFamily: "Fira Code VF",
+        uiLineHeight: 1.5,
+        codeLineHeight: 1.5,
+        // codeFontSize: "0.875rem",
+      },
+    }),
     mdx(),
+    sitemap(),
   ],
   // wants to be serverless by default
   output: "static",
   adapter: vercel({
     webAnalytics: {
-      enabled: true,
-    },
-    speedInsights: {
       enabled: true,
     },
   }),

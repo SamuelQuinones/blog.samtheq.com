@@ -32,11 +32,14 @@ export default function rehypeAttrs(): ReturnType<RehypePlugin> {
       ) {
         const searchParams = new URLSearchParams(
           //@ts-expect-error doesnt account for mdx
-          parent.children[index + 1].value.replace(/^\/\*(.*?)\*\/$/, "$1").replace(/^attrs:/, "")
+          parent.children[index + 1].value
+            .replace(/^\/\*(.*?)\*\/$/, "$1")
+            .trim()
+            .replace(/^attrs:/, "")
         );
         if (isElement) {
           for (const [key, value] of searchParams) {
-            node.properties![key] = value;
+            node.properties[key] = value;
           }
         } else {
           import.meta.env.MODE !== "production" && console.warn(jsxFlowWarnMSG);

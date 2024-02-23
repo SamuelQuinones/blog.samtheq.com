@@ -13,11 +13,6 @@ const blogCollection = defineCollection({
         .string()
         .or(z.date())
         .transform((val) => new Date(val)),
-      lastUpdated: z
-        .string()
-        .or(z.date())
-        .transform((val) => new Date(val))
-        .optional(),
       authors: z.array(reference("author")).default(["samq"]),
       draft: z.boolean().optional(),
     }),

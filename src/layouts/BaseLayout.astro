@@ -53,8 +53,7 @@ const updatedTitle = [title, siteName].join(" | ");
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
 
-    {/* need this to trick prettier */}
-    {() => <SEO title={updatedTitle} {siteName} {description} {canonicalURL} {ogImage} />}
+    <SEO title={updatedTitle} {siteName} {description} {canonicalURL} {ogImage} />
 
     {authors?.map((author) => <meta property="article:author" content={author} />)}
     {tags?.map((tag) => <meta property="article:tag" content={tag} />)}

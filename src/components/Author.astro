@@ -15,7 +15,7 @@ const { name, avatar } = Astro.props;
     avatar ? (
       <Image src={avatar} height={42} width={42} alt={`${name} Avatar`} class="rounded-full" />
     ) : (
-      <span class="h-[42px] w-[42px] rounded-full bg-gray-500 p-1.5 text-3xl/none">
+      <span class="size-[42px] rounded-full bg-gray-500 p-1.5 text-3xl/none">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
