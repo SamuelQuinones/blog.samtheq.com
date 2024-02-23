@@ -66,7 +66,7 @@ export default function Navbar({ children, title }: NavbarProps) {
       initial={false}
       ref={HEADER_REF}
       variants={navbarVariants}
-      className="navbar fixed inset-x-0 top-0 w-full overflow-y-hidden bg-gray-900 py-0 shadow-lg sm:overflow-y-visible sm:py-2"
+      className="navbar fixed inset-x-0 top-0 w-full overflow-y-hidden bg-black py-0 shadow-lg shadow-white/5 sm:overflow-y-visible sm:py-2"
       style={{ zIndex: 9999 }}
       onAnimationStart={onAnimationStart}
       onAnimationComplete={onAnimationComplete}
@@ -84,7 +84,7 @@ export default function Navbar({ children, title }: NavbarProps) {
           </span>
           <div className="flex sm:hidden">
             <button
-              className="flex h-8 w-8 flex-col items-center justify-around rounded-sm transition-shadow focus:outline-none focus:ring focus:ring-opacity-60"
+              className="flex size-8 flex-col items-center justify-around rounded-sm transition-shadow focus:outline-none focus:ring focus:ring-opacity-60"
               onClick={toggleNavbar}
               aria-label="Toggle Navbar"
             >

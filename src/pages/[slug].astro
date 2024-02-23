@@ -3,7 +3,7 @@ import { type CollectionEntry, getCollection, getEntries } from "astro:content";
 import { getPublicPosts } from "@util/BlogHelper";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
-import { format } from "date-fns";
+import { format, differenceInDays } from "date-fns";
 import TableOfContents from "@components/TableOfContents.astro";
 import Author from "@components/Author.astro";
 
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, publishDate, description, lastUpdated, cover, coverAlt, ...rest },
+  data: { title, publishDate, description, cover, coverAlt, ...rest },
   // eslint-disable-next-line @typescript-eslint/unbound-method
   render,
 } = Astro.props;
@@ -33,7 +33,11 @@ const ogImage = cover
 const tags = rest.tags.map(({ id }) => id);
 const authors = (await getEntries(rest.authors)).map(({ data }) => data);
 
-const { Content, headings } = await render();
+const { Content, headings, remarkPluginFrontmatter } = await render();
+
+const lastUpdated = remarkPluginFrontmatter.lastUpdated
+  ? new Date(remarkPluginFrontmatter.lastUpdated as unknown as string)
+  : undefined;
 ---
 
 <BaseLayout
@@ -47,12 +51,12 @@ const { Content, headings } = await render();
   {ogImage}
 >
   <article id="stq-page-content" class="container mb-8 mt-16 max-w-5xl grow scroll-mt-16">
-    <section data-time-meta class="pb-5 text-sm text-gray-300 md:text-base">
+    <section data-time-meta class="pb-5 text-sm md:text-base">
       <p class="mb-2">
         Originally published on {format(publishDate, "MMMM do, yyyy")}
       </p>
       {
-        lastUpdated && (
+        lastUpdated && differenceInDays(lastUpdated, publishDate) > 1 && (
           <p class="mt-2 italic">Last Edited on {format(lastUpdated, "MMMM do, yyyy")}</p>
         )
       }
@@ -60,7 +64,7 @@ const { Content, headings } = await render();
     <section data-tag-list class="inline-flex flex-wrap gap-2 pb-5">
       {
         tags.map((val) => (
-          <Button variant="info" href={`/tags/${val}`} class="px-2 py-1 leading-4">
+          <Button variant="accent" href={`/tags/${val}`} class="px-2 py-1 leading-4">
             <span class="sr-only">Click or tap this tag to view other posts about</span>
             <strong> # {val}</strong>
           </Button>
@@ -70,7 +74,7 @@ const { Content, headings } = await render();
     <!-- used to have class of grow, that doesnt do anything if parent is display: block -->
     <section
       data-post-body
-      class="prose prose-invert max-w-none lg:prose-xl hocus:prose-a:text-gray-300"
+      class="prose prose-invert max-w-none lg:prose-xl prose-figcaption:italic prose-strong:font-bold hocus:prose-a:text-accent-lighter-10"
     >
       <h1 class="!mb-5 lg:!text-5xl">{title}</h1>
       <div

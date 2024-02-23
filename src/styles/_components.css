@@ -1,44 +1,25 @@
 /* ---- BUTTONS START ---- */
 .btn {
-  @apply inline-block select-none rounded-md border px-3 py-1.5 align-middle leading-normal transition-colors duration-200 focus:outline-none focus:ring disabled-class:pointer-events-none disabled-class:cursor-not-allowed disabled-class:opacity-70;
-}
-/* APPEND HERE */
-.btn-blue {
-  @apply border-blue-600 bg-blue-600 text-white focus:ring-blue-300 focus:ring-opacity-60 hocus:border-blue-700 hocus:bg-blue-700 hocus:text-white disabled-class:border-blue-600 disabled-class:bg-blue-600;
-}
-
-.btn-outline-blue {
-  @apply border-blue-600 bg-transparent text-blue-600 focus:ring-blue-300 focus:ring-opacity-60 hocus:border-blue-700 hocus:bg-blue-700 hocus:text-white disabled-class:border-blue-600 disabled-class:bg-transparent disabled-class:text-blue-600;
-}
-
-.btn-info {
-  @apply border-info-700 bg-info-700 text-white focus:ring-info-400 focus:ring-opacity-50 hocus:border-info-800 hocus:bg-info-800 hocus:text-white disabled-class:border-info-700 disabled-class:bg-info-700;
-}
-
-.btn-outline-info {
-  @apply border-info-700 bg-transparent text-info-700 focus:ring-info-400 focus:ring-opacity-50 hocus:border-info-800 hocus:bg-info-800 hocus:text-white disabled-class:border-info-700 disabled-class:bg-transparent disabled-class:text-info-700;
+  @apply inline-block select-none rounded-md border px-3 py-1.5 text-center align-middle leading-normal transition-colors duration-200 focus:outline-none focus:ring disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-70;
 }
 
 .btn-primary {
-  @apply border-primary-700 bg-primary-700 text-white focus:ring-primary-400 focus:ring-opacity-50 hocus:border-primary-800 hocus:bg-primary-800 hocus:text-white disabled-class:border-primary-700 disabled-class:bg-primary-700;
-}
-
-.btn-outline-primary {
-  @apply border-primary-700 bg-transparent text-primary-700 focus:ring-primary-400 focus:ring-opacity-50 hocus:border-primary-800 hocus:bg-primary-800 hocus:text-white disabled-class:border-primary-700 disabled-class:bg-transparent disabled-class:text-primary-700;
+  @apply border-primary bg-primary text-black focus:ring-primary/60 hocus:border-primary-darker-10 hocus:bg-primary-darker-10 disabled:border-primary-lighter-10 disabled:bg-primary-lighter-10;
 }
 
 .btn-secondary {
-  @apply border-secondary-200 bg-secondary-200 text-black focus:ring-secondary-50 focus:ring-opacity-50 hocus:border-secondary-300 hocus:bg-secondary-300 hocus:text-black disabled-class:border-secondary-200 disabled-class:bg-secondary-200;
+  @apply border-secondary bg-secondary focus:ring-secondary/60 hocus:border-secondary-darker-10 hocus:bg-secondary-darker-10 disabled:border-secondary-lighter-10 disabled:bg-secondary-lighter-10;
 }
 
-.btn-outline-secondary {
-  @apply border-secondary-200 bg-transparent text-secondary-200 focus:ring-secondary-50 focus:ring-opacity-50 hocus:border-secondary-300 hocus:bg-secondary-300 hocus:text-black disabled-class:border-secondary-200 disabled-class:bg-transparent disabled-class:text-secondary-200;
+.btn-accent {
+  @apply border-accent bg-accent text-black focus:ring-accent/60 hocus:border-accent-darker-10 hocus:bg-accent-darker-10 disabled:border-accent-lighter-10 disabled:bg-accent-lighter-10;
 }
+
 /* ---- BUTTONS END ---- */
 
 /* ---- NAVIGATION START ---- */
 .nav-link {
-  @apply my-1 flex whitespace-nowrap rounded p-2 text-white text-opacity-80 transition-colors focus-within:text-opacity-100 hover:bg-gray-800 active:text-opacity-100 hocus:text-white hocus:text-opacity-100 sm:mx-0.5 sm:my-0;
+  @apply my-1 flex whitespace-nowrap rounded p-2 text-white text-opacity-80 transition-colors focus-within:text-opacity-100 hover:bg-background-lighter-10 active:text-opacity-100 hocus:text-white hocus:text-opacity-100 sm:mx-0.5 sm:my-0;
 }
 .nav-link.active {
   @apply font-semibold text-opacity-100;
