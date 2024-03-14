@@ -45,14 +45,14 @@ module.exports = {
           css: {
             "--tw-prose-invert-body": "hsl(var(--text))",
             "--tw-prose-invert-links": "hsl(var(--accent))",
-            "--tw-prose-invert-quotes": "hsl(166deg 68% 74%)",
+            "--tw-prose-invert-quotes": "hsl(197deg 79% 72%)",
             "--tw-prose-invert-quote-borders": "hsl(var(--background-lighter-10))",
             "--tw-prose-invert-hr": "hsl(var(--background-lighter-10))",
             "--tw-prose-invert-th-borders": "rgb(255,255,255)",
             "--tw-prose-invert-td-borders": "hsl(var(--background-lighter-10))",
             "--tw-prose-invert-bullets": "rgb(255,255,255)",
             "--tw-prose-invert-counters": "rgb(255,255,255)",
-            "--tw-prose-invert-captions": "hsl(166deg 68% 74%)",
+            "--tw-prose-invert-captions": "hsl(197deg 79% 72%)",
             img: {
               marginLeft: "auto",
               marginRight: "auto",

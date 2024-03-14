@@ -64,9 +64,9 @@ const lastUpdated = remarkPluginFrontmatter.lastUpdated
     <section data-tag-list class="inline-flex flex-wrap gap-2 pb-5">
       {
         tags.map((val) => (
-          <Button variant="accent" href={`/tags/${val}`} class="px-2 py-1 leading-4">
+          <Button variant="secondary" href={`/tags/${val}`} class="px-2 py-1 lg:text-lg/normal">
             <span class="sr-only">Click or tap this tag to view other posts about</span>
-            <strong> # {val}</strong>
+            <span class="font-semibold"> # {val}</span>
           </Button>
         ))
       }
