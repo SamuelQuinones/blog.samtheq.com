@@ -81,6 +81,7 @@ module.exports = {
       // Define the configuration for `<script>` tag.
       // Script in `<script>` is assigned a virtual file name with the `.js` extension.
       files: ["**/*.astro/*.js", "*.astro/*.js"],
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
       env: {
         browser: true,
         es2020: true,
