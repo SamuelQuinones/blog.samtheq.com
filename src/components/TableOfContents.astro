@@ -24,6 +24,7 @@ const headings = toc.filter((item) => item.depth === depth);
         <li class="mt-2.5 first:mt-0">
           <a
             href={`#${head.slug}`}
+            aria-label={head.text}
             class="text-white underline underline-offset-2 hocus:text-accent-lighter-10"
           >
             {head.text}
