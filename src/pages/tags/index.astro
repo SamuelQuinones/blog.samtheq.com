@@ -32,7 +32,7 @@ const allTags = await getCollection("tag");
     <section class="relative inline-flex flex-wrap gap-2">
       {
         allTags.map(({ id }) => (
-          <Button href={`/tags/${id}`} variant="tag" class:list={["tag", id, "font-bold"]}>
+          <Button as="a" href={`/tags/${id}`} variant="tag" class:list={["tag", id, "font-bold"]}>
             {id}
           </Button>
         ))

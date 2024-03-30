@@ -36,7 +36,7 @@ const { title, publishDate, description, slug, showTags, tags, cover, coverAlt }
       showTags && (
         <section data-tag-list class="relative clear-left mt-5 inline-flex flex-wrap gap-2">
           {tags.map(({ id }) => (
-            <Button href={`/tags/${id}`} variant="secondary" class="z-10 px-2 py-1">
+            <Button as="a" href={`/tags/${id}`} variant="secondary" class="z-10 px-2 py-1">
               <span class="sr-only">Click or tap this tag to view other posts about</span>
               <span class="font-semibold"> # {id}</span>
             </Button>
