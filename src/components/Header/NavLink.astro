@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import ensureTrailingSlash from "@util/ensure-trailing-slash";
 
 export interface Props extends HTMLAttributes<"a"> {
   href: string;
@@ -18,7 +19,7 @@ function isActiveNested(href: string, pathname: string) {
 
 const active = highlightNested
   ? isActiveNested(href, Astro.url.pathname)
-  : Astro.url.pathname === href;
+  : ensureTrailingSlash(Astro.url.pathname) === ensureTrailingSlash(href);
 ---
 
 <li class="relative sm:[&:not(:first-child)]:ml-1">
