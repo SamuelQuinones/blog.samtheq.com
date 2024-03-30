@@ -53,6 +53,7 @@ module.exports = {
             "--tw-prose-invert-bullets": "rgb(255,255,255)",
             "--tw-prose-invert-counters": "rgb(255,255,255)",
             "--tw-prose-invert-captions": "hsl(197deg 79% 72%)",
+            // "--tw-prose-invert-code": "hsl(var(--primary))",
             img: {
               marginLeft: "auto",
               marginRight: "auto",

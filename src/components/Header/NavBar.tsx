@@ -79,9 +79,9 @@ export default function Navbar({ children, title }: NavbarProps) {
         </a>
         <section className="flex items-center justify-between py-3 sm:py-0">
           <img src="/favicon.ico" height="32" width="32" alt="SamTheQ Logo" />
-          <span title={title} className="line-clamp-1 flex max-w-xl px-2">
+          <div title={title} className="line-clamp-1 max-w-xl px-2">
             {title}
-          </span>
+          </div>
           <div className="flex sm:hidden">
             <button
               className="flex size-8 flex-col items-center justify-around rounded-sm transition-shadow focus:outline-none focus:ring focus:ring-opacity-60"
