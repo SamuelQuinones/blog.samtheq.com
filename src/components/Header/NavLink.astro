@@ -21,6 +21,17 @@ const active = highlightNested
   : Astro.url.pathname === href;
 ---
 
-<a {href} class:list={["nav-link", { active }, className]} {...attrs}>
-  <slot />
-</a>
+<li class="relative sm:[&:not(:first-child)]:ml-1">
+  <a
+    {href}
+    data-active={active}
+    aria-current={active ? "page" : null}
+    class:list={[
+      "flex select-none items-center rounded-md p-2 text-text/85 transition-colors focus:outline-none data-[active]:aria-[current='page']:text-text data-[active]:aria-[current='page']:underline hocus:bg-background-lighter-10 hocus:text-text disabled:pointer-events-none disabled:opacity-50",
+      className,
+    ]}
+    {...attrs}
+  >
+    <slot />
+  </a>
+</li>

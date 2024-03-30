@@ -17,7 +17,7 @@ const navbarVariants = {
   closed: { height: `${NAVBAR_BASE_HEIGHT}rem` },
 };
 
-const burgerLineClasses = clsx("h-[0.1875rem]", "rounded-full", "w-full", "relative", "bg-white");
+const burgerLineClasses = clsx("relative h-[0.1875rem] w-full rounded-full bg-white");
 
 const makeTopBottom = (mult: 1 | -1, moveY: number) => {
   return {
@@ -44,7 +44,7 @@ export default function Navbar({ children, title }: NavbarProps) {
   const toggleNavbar = () => setOpen((prev) => !prev);
 
   const HEADER_REF = useRef<HTMLElement>(null);
-  const CHILDREN_REF = useRef<HTMLDivElement>(null);
+  const CHILDREN_REF = useRef<HTMLUListElement>(null);
 
   const onAnimationComplete = useCallback((def: string) => {
     if (def === "closed") {
@@ -98,9 +98,12 @@ export default function Navbar({ children, title }: NavbarProps) {
             </button>
           </div>
         </section>
-        <section ref={CHILDREN_REF} className="py-2 max-sm:hidden sm:flex sm:p-0">
+        <ul
+          ref={CHILDREN_REF}
+          className="flex list-none flex-col py-2 max-sm:hidden sm:flex-row sm:p-0"
+        >
           {children}
-        </section>
+        </ul>
       </nav>
     </motion.header>
   );

@@ -1,9 +1,6 @@
-@import "tailwindcss/base";
-
-@import "tailwindcss/components";
-@import "./_components.css";
-
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* OLD */
 /* https://www.realtimecolors.com/?colors=e5faf5-041612-86eed4-571599-cabc63&fonts=Poppins-Poppins */
