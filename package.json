@@ -9,8 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint \"src/**/*.{ts,tsx,astro}\" && prettier -c \"src/**/*.{json,css,astro}\"",
-    "format": "eslint --fix \"src/**/*.{ts,tsx,astro}\" && prettier -w \"src/**/*.{json,css,astro}\""
+    "lint": "eslint \"src/**/*.{ts,tsx,astro}\" && prettier -c \"src/**/*.{json,css,astro,md,mdx}\"",
+    "format": "eslint --fix \"src/**/*.{ts,tsx,astro}\" && prettier -w \"src/**/*.{json,css,astro,md,mdx}\""
   },
   "engines": {
     "node": "^18",
