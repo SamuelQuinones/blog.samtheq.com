@@ -48,10 +48,11 @@ export default defineConfig({
       themes: ["dark-plus"],
       // frames: false,
       styleOverrides: {
-        uiFontFamily: "Inter var",
         codeFontFamily: "Fira Code VF",
-        uiLineHeight: 1.5,
         codeLineHeight: 1.5,
+        uiFontFamily: "Inter var",
+        uiLineHeight: 1.5,
+        codeFontSize: "14px",
         // codeFontSize: "0.875rem",
       },
     }),
