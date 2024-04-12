@@ -86,9 +86,10 @@ const lastUpdated = remarkPluginFrontmatter.lastUpdated
         By: {authors.map(({ name, avatar }) => <Author {name} {avatar} />)}
       </div>
       <details class="not-prose text-base/normal" role="navigation" aria-label="Table of Contents">
-        <summary
-          class="btn btn-primary toc-toggle list-item w-fit select-none rounded-none font-semibold"
-          >Table of Contents</summary
+        <Button
+          as="summary"
+          class="toc-toggle list-item w-fit select-none rounded-none font-semibold"
+          >Table of Contents</Button
         >
         <TableOfContents toc={headings} depth={2} />
       </details>
