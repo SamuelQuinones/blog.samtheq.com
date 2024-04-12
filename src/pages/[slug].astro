@@ -6,6 +6,7 @@ import Button from "@components/Button.astro";
 import { format, differenceInDays } from "date-fns";
 import TableOfContents from "@components/TableOfContents.astro";
 import Author from "@components/Author.astro";
+import Prose from "@components/Prose.astro";
 
 export type Props = CollectionEntry<"blog">;
 
@@ -77,10 +78,7 @@ const lastUpdated = remarkPluginFrontmatter.lastUpdated
       }
     </section>
     <!-- used to have class of grow, that doesnt do anything if parent is display: block -->
-    <section
-      data-post-body
-      class="prose prose-invert max-w-none lg:prose-xl prose-figcaption:italic prose-strong:font-bold hocus:prose-a:text-accent-lighter-10"
-    >
+    <Prose>
       <h1 class="!mb-5 lg:!text-5xl">{title}</h1>
       <div
         class="not-prose mb-6 inline-flex flex-wrap items-center gap-3 text-base/normal text-white"
@@ -95,7 +93,7 @@ const lastUpdated = remarkPluginFrontmatter.lastUpdated
         <TableOfContents toc={headings} depth={2} />
       </details>
       <Content />
-    </section>
+    </Prose>
   </article>
 </BaseLayout>
 

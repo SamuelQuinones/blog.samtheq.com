@@ -12,7 +12,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        // APPEND HERE
         text: {
           DEFAULT: "hsl(var(--text) / <alpha-value>)",
         },
@@ -43,54 +42,8 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            "--tw-prose-invert-body": "hsl(var(--text))",
-            "--tw-prose-invert-links": "hsl(var(--accent))",
-            "--tw-prose-invert-quotes": "hsl(197deg 79% 72%)",
-            "--tw-prose-invert-quote-borders": "hsl(var(--background-lighter-10))",
-            "--tw-prose-invert-hr": "hsl(var(--background-lighter-10))",
-            "--tw-prose-invert-th-borders": "rgb(255,255,255)",
-            "--tw-prose-invert-td-borders": "hsl(var(--background-lighter-10))",
-            "--tw-prose-invert-bullets": "rgb(255,255,255)",
-            "--tw-prose-invert-counters": "rgb(255,255,255)",
-            "--tw-prose-invert-captions": "hsl(197deg 79% 72%)",
-            // "--tw-prose-invert-code": "hsl(var(--primary))",
-            img: {
-              marginLeft: "auto",
-              marginRight: "auto",
-            },
             "sup > a[data-footnote-ref]": {
               scrollMarginTop: "4rem",
-            },
-            "h1,h2,h3,h4,h5,h6": {
-              scrollMarginTop: "4rem",
-              "> a": {
-                color: "var(--tw-prose-headings)",
-                display: "block",
-                textDecorationLine: "none",
-                "&::after": {
-                  opacity: 0,
-                  content: `" #"`,
-                },
-                "&:hover": {
-                  color: "rgb(255,255,255)",
-                  "&::after": {
-                    opacity: 0.8,
-                  },
-                },
-              },
-            },
-            // pre: {
-            //   lineHeight: 1.5,
-            // },
-            code: {
-              fontVariantLigatures: "none",
-              "&::before": {
-                content: `none !important`,
-              },
-              "&::after": {
-                content: `none !important`,
-              },
-              fontWeight: "normal",
             },
             ":not(pre) > code": {
               background: "hsl(var(--background-lighter-10))",
