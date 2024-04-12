@@ -15,14 +15,12 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
+  "tailwindCSS.classAttributes": ["class", "className", "class:list"],
   // get tailwind intellisense inside classNames(), clsx(), etc.
   "tailwindCSS.experimental.classRegex": [
     ["(?:classnames|classNames|cx|clsx)\\(([^)]*)\\)", "(?:')((?:\\'|[^'])*)(?:')"],
     ["(?:classnames|classNames|cx|clsx)\\(([^)]*)\\)", "(?:\")((?:\\\"|[^\"])*)(?:\")"],
     ["(?:classnames|classNames|cx|clsx)\\(([^)]*)\\)", "(?:`)((?:\\`|[^`])*)(?:`)"],
-    ["(?:class:list\\s*=\\s*\\{\\[)([^\\]]*)(?:\\]\\})", "(?:')((?:\\'|[^'])*)(?:')"],
-    ["(?:class:list\\s*=\\s*\\{\\[)([^\\]]*)(?:\\]\\})", "(?:\")((?:\\\"|[^\"])*)(?:\")"],
-    ["(?:class:list\\s*=\\s*\\{\\[)([^\\]]*)(?:\\]\\})", "(?:`)((?:\\`|[^`])*)(?:`)"]
   ],
   "dotenv.enableAutocloaking": false
 }
