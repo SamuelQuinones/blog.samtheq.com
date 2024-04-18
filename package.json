@@ -12,9 +12,10 @@
     "lint": "eslint \"src/**/*.{ts,tsx,astro}\" && prettier -c \"src/**/*.{json,css,astro,md,mdx}\"",
     "format": "eslint --fix \"src/**/*.{ts,tsx,astro}\" && prettier -w \"src/**/*.{json,css,astro,md,mdx}\""
   },
+  "packageManager": "pnpm@8.15.5",
   "engines": {
-    "node": "^18",
-    "pnpm": "^8"
+    "node": "18.x",
+    "pnpm": "8.x"
   },
   "dependencies": {
     "@astrojs/check": "0.5.10",
