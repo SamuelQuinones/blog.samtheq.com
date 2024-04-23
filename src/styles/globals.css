@@ -7,37 +7,23 @@
 
 /* NEW */
 /* https://www.realtimecolors.com/dashboard?colors=dcf2fb-020a0d-81cff0-971242-e6912d&fonts=Poppins-Poppins */
-:root {
-  --text: 197 79% 92%;
-  --background-lighter-10: 196 73% 13%;
-  --background: 196 73% 3%;
-  --primary-lighter-10: 198 79% 82%;
-  --primary: 198 79% 72%;
-  --primary-darker-10: 198 79% 62%;
-  --secondary-lighter-10: 338 79% 43%;
-  --secondary: 338 79% 33%;
-  --secondary-darker-10: 338 79% 23%;
-  --accent-lighter-10: 32 79% 64%;
-  --accent: 32 79% 54%;
-  --accent-darker-10: 32 79% 44%;
-}
+/* https://www.realtimecolors.com/?colors=efeeef-221122-09aff6-930b46-86c766&fonts=Inter-Inter */
 
 @layer components {
-  
   .btn {
     @apply inline-block select-none rounded-md border px-3 py-1.5 text-center align-middle leading-normal transition-colors duration-200 focus:outline-none focus:ring disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-70;
   }
 
   .btn.btn-primary {
-    @apply border-primary bg-primary text-black focus:ring-primary/60 hocus:border-primary-darker-10 hocus:bg-primary-darker-10 disabled:border-primary-lighter-10 disabled:bg-primary-lighter-10;
+    @apply border-primary bg-primary text-black focus:ring-primary/60 hocus:border-primary-600 hocus:bg-primary-600 disabled:border-primary-400 disabled:bg-primary-400;
   }
 
   .btn.btn-secondary {
-    @apply border-secondary bg-secondary focus:ring-secondary/60 hocus:border-secondary-darker-10 hocus:bg-secondary-darker-10 disabled:border-secondary-lighter-10 disabled:bg-secondary-lighter-10;
+    @apply border-secondary bg-secondary focus:ring-secondary/60 hocus:border-secondary-800 hocus:bg-secondary-800 disabled:border-secondary-600 disabled:bg-secondary-600;
   }
 
   .btn.btn-accent {
-    @apply border-accent bg-accent text-black focus:ring-accent/60 hocus:border-accent-darker-10 hocus:bg-accent-darker-10 disabled:border-accent-lighter-10 disabled:bg-accent-lighter-10;
+    @apply border-accent bg-accent text-black focus:ring-accent/60 hocus:border-accent-500 hocus:bg-accent-500 disabled:border-accent-300 disabled:bg-accent-300;
   }
 }
 
@@ -45,8 +31,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: hsl(var(--background));
-  color: hsl(var(--text));
 }
 
 html {

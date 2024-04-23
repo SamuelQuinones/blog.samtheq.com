@@ -14,7 +14,7 @@ const { title, publishDate, description, slug, showTags, tags, cover, coverAlt }
 
 <li data-title={title}>
   <article
-    class="relative rounded-lg border border-gray-700 bg-black p-5 outline-secondary transition-transform duration-200 ease-out focus-within:outline hover:scale-[1.03] [&:has(.btn:focus)]:outline-primary"
+    class="relative rounded-lg border border-secondary/30 bg-secondary/30 p-5 outline-secondary transition-transform duration-200 ease-out focus-within:outline hover:scale-[1.03] [&:has(.btn:focus)]:outline-primary"
   >
     <a href={`/${slug}`} class="block outline-none">
       {cover && <Image src={cover} alt={coverAlt ?? "Blog post cover image"} class="my-8" />}

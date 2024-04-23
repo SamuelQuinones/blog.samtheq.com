@@ -66,7 +66,7 @@ export default function Navbar({ children, title }: NavbarProps) {
       initial={false}
       ref={HEADER_REF}
       variants={navbarVariants}
-      className="navbar fixed inset-x-0 top-0 w-full overflow-y-hidden bg-black py-0 shadow-lg shadow-white/5 sm:overflow-y-visible sm:py-2"
+      className="navbar fixed inset-x-0 top-0 w-full overflow-y-hidden bg-gray-950 py-0 shadow-lg sm:overflow-y-visible sm:py-2"
       style={{ zIndex: 9999 }}
       onAnimationStart={onAnimationStart}
       onAnimationComplete={onAnimationComplete}

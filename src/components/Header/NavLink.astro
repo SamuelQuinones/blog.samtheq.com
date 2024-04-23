@@ -28,7 +28,7 @@ const active = highlightNested
     data-active={active}
     aria-current={active ? "page" : null}
     class:list={[
-      "flex select-none items-center rounded-md p-2 text-text/85 transition-colors focus:outline-none data-[active]:aria-[current='page']:text-text data-[active]:aria-[current='page']:underline hocus:bg-background-lighter-10 hocus:text-text disabled:pointer-events-none disabled:opacity-50",
+      "flex select-none items-center rounded-md p-2 transition-colors focus:outline-none data-[active]:aria-[current='page']:underline hocus:bg-primary/20 disabled:pointer-events-none disabled:opacity-50",
       className,
     ]}
     {...attrs}
