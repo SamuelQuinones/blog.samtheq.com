@@ -11,9 +11,7 @@ export default function rehypeUnwrapImages(): Transformer<Root, Root> {
         node.tagName === "p" &&
         parent &&
         typeof index === "number" &&
-        (node.children.every((n) => n.type === "element" && n.tagName === "img") ||
-          // @ts-expect-error not accounting for MDX
-          node.children.every((n) => n.type === "mdxJsxFlowElement" && n.name === "__AstroImage__"))
+        node.children.every((n) => n.type === "element" && n.tagName === "img")
       ) {
         parent.children.splice(index, 1, ...node.children);
         return [SKIP, index + node.children.length];
