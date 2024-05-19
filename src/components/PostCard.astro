@@ -1,8 +1,8 @@
 ---
-import Button from "./Button.astro";
-import { format, formatISO } from "date-fns";
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { format, formatISO } from "date-fns";
+import Button from "./Button.astro";
 
 export type Props = CollectionEntry<"blog">["data"] & {
   showTags?: boolean;

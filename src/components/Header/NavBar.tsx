@@ -1,9 +1,9 @@
 // TODO: LazyMotion with astro - is it possible?
 
-import useOutsideClick from "@hooks/use-outside-click";
-import { type ReactNode, useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useRef, useState, type ReactNode } from "react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
+import useOutsideClick from "@hooks/use-outside-click";
 
 interface NavbarProps {
   children?: ReactNode;

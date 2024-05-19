@@ -1,5 +1,5 @@
-import { resolveElement } from "@util/ReactHelper";
 import type { RefObject } from "react";
+import { resolveElement } from "@util/ReactHelper";
 import useEventListener from "./use-event-listener";
 
 function useOutsideClick<T extends HTMLElement = HTMLElement>(

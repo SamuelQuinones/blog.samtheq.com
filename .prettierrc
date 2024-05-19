@@ -5,9 +5,25 @@
   "trailingComma": "es5",
   "htmlWhitespaceSensitivity": "css",
   "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-astro",
     "prettier-plugin-tailwindcss"
   ],
   "tailwindFunctions": ["clsx"],
+  "importOrder": [
+    "^astro",
+    "^react$",
+    "^react-dom$",
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "^@layouts/",
+    "^@util/",
+    "^@components/",
+    "^@hooks/",
+    "^[.][.]/",
+    "^[.]/"
+  ],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderTypeScriptVersion": "5.4.5",
   "overrides": [{ "files": "*.astro", "options": { "parser": "astro" } }]
 }

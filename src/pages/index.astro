@@ -1,8 +1,8 @@
 ---
-import PostCard from "@components/PostCard.astro";
+import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getPublicPosts, sortPosts } from "@util/BlogHelper";
-import { getCollection } from "astro:content";
+import PostCard from "@components/PostCard.astro";
 
 const posts = await getCollection("blog", getPublicPosts);
 ---

@@ -1,9 +1,9 @@
 ---
-import PostCard from "@components/PostCard.astro";
+import type { InferGetStaticParamsType } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getPublicPosts, sortPosts } from "@util/BlogHelper";
-import type { InferGetStaticParamsType } from "astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import PostCard from "@components/PostCard.astro";
 
 export interface Props {
   posts: CollectionEntry<"blog">[];

@@ -1,12 +1,12 @@
 ---
-import { type CollectionEntry, getCollection, getEntries } from "astro:content";
-import { getPublicPosts } from "@util/BlogHelper";
+import { getCollection, getEntries, type CollectionEntry } from "astro:content";
+import { differenceInDays, format } from "date-fns";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import Button from "@components/Button.astro";
-import { format, differenceInDays } from "date-fns";
-import TableOfContents from "@components/TableOfContents.astro";
+import { getPublicPosts } from "@util/BlogHelper";
 import Author from "@components/Author.astro";
+import Button from "@components/Button.astro";
 import Prose from "@components/Prose.astro";
+import TableOfContents from "@components/TableOfContents.astro";
 
 export type Props = CollectionEntry<"blog">;
 

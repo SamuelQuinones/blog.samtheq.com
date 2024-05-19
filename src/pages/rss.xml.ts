@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
-import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
+import rss from "@astrojs/rss";
 import { getPublicPosts, sortPosts } from "@util/BlogHelper";
 
 export async function GET(context: APIContext) {

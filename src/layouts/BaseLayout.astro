@@ -1,10 +1,10 @@
 ---
 import "../styles/globals.css";
+import { formatISO } from "date-fns";
 import Footer from "@components/Footer.astro";
 import NavBar from "@components/Header/NavBar";
 import NavLink from "@components/Header/NavLink.astro";
 import SEO, { type OGImage } from "@components/SEO.astro";
-import { formatISO } from "date-fns";
 
 export interface Props {
   title: string;
